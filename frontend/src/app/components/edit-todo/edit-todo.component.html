@@ -1,0 +1,59 @@
+<h1>Create new Note:</h1>
+
+<form [formGroup]="formGroup">
+  <div class="full-form-width">
+    <tui-input formControlName="heading" tuiTextfieldSize="m">Heading</tui-input>
+    <tui-error [error]="[] | tuiFieldError | async" formControlName="heading"></tui-error>
+  </div>
+  <tui-input class="full-form-width" formControlName="image" tuiTextfieldSize="m">Image URL</tui-input>
+  <!-- TODO: (Taiga UI migration) Use property [separator] to forbid spaces. See example: https://taiga-ui.dev/components/input-tag#no-spaces-inside-tags -->
+<tui-input-tag
+    class="full-form-width"
+    formControlName="tags"
+    tuiTextfieldSize="m"
+    [allowSpaces]="true"
+    [tuiTextfieldLabelOutside]="true"
+    (searchChange)="search = $event"
+  >
+    Tags:
+    <tui-data-list-wrapper *tuiDataList [items]="filteredTags$ | async"></tui-data-list-wrapper>
+  </tui-input-tag>
+  <tip-editor [extensions]="extensions" [angularExtensions]="angularExtensions" [content]="context.data?.todo?.content!">
+    <tip-editor-header>
+      <!--  left  -->
+      <tip-format-control></tip-format-control>
+      <tip-control-text-align></tip-control-text-align>
+      <tip-control-underline>
+        <tui-svg src="tuiIconUnderlineLarge"></tui-svg>
+      </tip-control-underline>
+      <tip-control-italic>
+        <tui-svg src="tuiIconItalicLarge"></tui-svg>
+      </tip-control-italic>
+      <tip-control-bold>
+        <tui-svg src="tuiIconBoldLarge"></tui-svg>
+      </tip-control-bold>
+      <tip-util-vr></tip-util-vr>
+      <!--  right  -->
+      <tip-util-spacer></tip-util-spacer>
+      <tip-util-vr></tip-util-vr>
+      <tip-bullet-list-control>
+        <tui-svg src="tuiIconViewListLarge"></tui-svg>
+      </tip-bullet-list-control>
+      <tip-control-number-list>
+        <tui-svg src="tuiIconOLLarge"></tui-svg>
+      </tip-control-number-list>
+      <tip-control-task>
+        <tui-svg src="tuiIconCheckCircle"></tui-svg>
+      </tip-control-task>
+      <tip-control-link>
+        <tui-svg src="tuiIconLink"></tui-svg>
+      </tip-control-link>
+    </tip-editor-header>
+    <tip-editor-body maxHeight="60vh" minHeight="30vh"></tip-editor-body>
+  </tip-editor>
+
+  <div class="space-between padding-top">
+    <button (click)="cancel()" tuiButton type="button" size="m">Cancel</button>
+    <button (click)="submit()" tuiButton type="button" size="m" [disabled]="!formGroup.valid">Submit</button>
+  </div>
+</form>

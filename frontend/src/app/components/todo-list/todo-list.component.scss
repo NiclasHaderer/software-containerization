@@ -1,0 +1,23 @@
+@import "src/scss/helpers";
+@import "src/scss/responsive";
+
+.spread-todos {
+  padding: 1rem;
+  box-sizing: border-box;
+
+  @include small {
+    @include responsive-grid(1);
+  }
+
+  @include medium {
+    @include responsive-grid(2);
+  }
+
+  @include large {
+    @include responsive-grid(3);
+  }
+
+  @include x-large {
+    @include responsive-grid(4);
+  }
+}

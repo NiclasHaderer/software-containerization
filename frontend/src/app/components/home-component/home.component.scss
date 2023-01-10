@@ -1,0 +1,30 @@
+.main-content {
+  padding: 1rem 1rem;
+  overflow: hidden;
+}
+
+.part {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: inline-block;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.left-part {
+  @extend .part;
+  left: 0;
+  width: calc(20vw - 2rem);
+  border-right: 1px solid var(--tui-base-03);
+  padding: 1rem;
+  height: calc(100vh - var(--header-height) - 2rem);
+}
+
+.right-part {
+  @extend .part;
+  width: 80vw;
+  right: 0;
+  padding: 0;
+  height: calc(100vh - var(--header-height));
+}

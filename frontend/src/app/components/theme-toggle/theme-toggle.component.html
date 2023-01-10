@@ -1,0 +1,10 @@
+<ng-container *ngIf="formGroup.get('theme')?.value">
+  <tui-theme-night></tui-theme-night>
+</ng-container>
+
+<form [formGroup]="formGroup" class="v-center">
+  <label>
+    Night mode
+    <tui-toggle formControlName="theme"></tui-toggle>
+  </label>
+</form>

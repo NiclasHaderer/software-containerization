@@ -1,0 +1,30 @@
+<header class="header v-center">
+  <a routerLink="/">Notes</a>
+  <div class="right-menu">
+    <app-theme-toggle></app-theme-toggle>
+    <tui-hosted-dropdown class="v-center"
+                         tuiDropdownAlign="right"
+                         [content]="dropdown"
+                         tuiDropdownDirection="bottom"
+    >
+      <tui-marker-icon src="tuiIconUser" size="xs"></tui-marker-icon>
+    </tui-hosted-dropdown>
+  </div>
+</header>
+
+
+<ng-template #dropdown>
+  <tui-data-list>
+    <ng-container *ngIf="account$ | async as account">
+      <a tuiOption routerLink="/account">
+        <tui-avatar [text]="account.username" size="s" [rounded]="true"></tui-avatar>
+        <span class="padding-left"> {{account.username}} </span>
+      </a>
+      <a tuiOption routerLink="/logout" (click)="clearLogin()">
+        <tui-marker-icon src="tuiIconLogoutLarge" size="xs"></tui-marker-icon>
+        Logout
+      </a>
+    </ng-container>
+    <a tuiOption routerLink="/login" *ngIf="!(account$ | async)"> Please login </a>
+  </tui-data-list>
+</ng-template>

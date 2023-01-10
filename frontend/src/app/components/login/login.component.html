@@ -1,0 +1,34 @@
+<div class="full-height all-center">
+
+  <div>
+    <form [formGroup]="formControl" (keypress)="enterHotkey($event)">
+
+      <h3>{{mode === 'login' ? 'Please login' : 'Create your account'}}</h3>
+
+      <tui-input class="form-input" tuiTextfieldSize="m" formControlName="username">
+        Username
+      </tui-input>
+      <tui-input-password class="form-input" tuiTextfieldSize="m" formControlName="password">
+        Password
+      </tui-input-password>
+
+      <div class="align-right padding-bottom" *ngIf="mode === 'login'">
+        <tui-checkbox-labeled formControlName="rememberLogin">
+          Remember login
+        </tui-checkbox-labeled>
+      </div>
+    </form>
+
+    <div class="space-between" *ngIf="mode === 'login'">
+      <button tuiButton size="m" (click)="mode = 'signup'" routerLink="/login" [queryParams]="{mode: 'signup'}"
+              appearance="secondary">Create Account
+      </button>
+      <button tuiButton size="m" (click)="login()">Login</button>
+    </div>
+    <div class="space-between" *ngIf="mode === 'signup'">
+      <button tuiButton size="m" (click)="mode = 'login'" routerLink="/login" appearance="secondary">Back</button>
+      <button tuiButton size="m" (click)="signup()">Signup</button>
+    </div>
+  </div>
+
+</div>

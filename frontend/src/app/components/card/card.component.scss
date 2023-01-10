@@ -1,0 +1,18 @@
+:host-context{
+  display: contents;
+}
+
+.card {
+  background: var(--tui-base-01);
+  border: 1px solid var(--tui-base-03);
+  border-radius: var(--tui-radius-m);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+}
+
+.full-width{
+  width: calc(100% - 2rem);
+}

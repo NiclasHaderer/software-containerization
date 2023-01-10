@@ -1,0 +1,5 @@
+<div class="tui-container tui-container_adaptive spread-todos">
+  <app-card *ngFor="let todo of todoList$ | async" [fullWidth]="true">
+    <app-todo [todo]="todo"></app-todo>
+  </app-card>
+</div>

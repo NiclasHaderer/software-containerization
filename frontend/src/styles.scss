@@ -1,0 +1,22 @@
+@use "node_modules/ngx-tiptap-editor/editor";
+@import "src/scss/helpers";
+@import "src/scss/global-fixes";
+
+:root {
+  --header-height: 64px;
+  --shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+}
+
+@include include-helpers();
+@include fixes();
+
+@include editor.import-theme();
+@include editor.remove-focus-ring();
+
+:root {
+  --tip-border-color: var(--tui-base-03);
+  --tip-background-color: var(--tui-base-01);
+  --tip-text-color: var(--tui-text-01);
+  --tip-active-color: var(--tui-primary);
+  --tip-disabled-color: var(--tip-border-color);
+}

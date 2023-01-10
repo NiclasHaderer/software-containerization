@@ -1,0 +1,10 @@
+.full-form-width {
+  ::ng-deep {
+    tui-primitive-textfield, input {
+      width: 100% !important;
+    }
+  }
+
+  width: 100%;
+  padding-bottom: 1rem;
+}

@@ -1,0 +1,30 @@
+.header {
+  box-shadow: var(--shadow);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--tui-base-01);
+  border-bottom: 1px solid var(--tui-base-03);
+  z-index: 1;
+}
+
+.right-menu {
+  display: flex;
+
+  app-theme-toggle {
+    display: flex;
+  }
+
+  > * {
+    padding-left: 1rem;
+  }
+}
+
+::ng-deep tui-hosted-dropdown > .wrapper {
+  display: flex;
+  align-items: center;
+}

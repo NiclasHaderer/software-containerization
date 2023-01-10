@@ -1,0 +1,84 @@
+@mixin include-helpers {
+  .padding-left {
+    padding-left: .5rem;
+  }
+
+  .padding-top {
+    padding-top: .5rem;
+  }
+
+  .padding-bottom {
+    padding-bottom: .5rem;
+  }
+
+  .no-margin-top {
+    margin-top: 0;
+  }
+
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .flex-grow {
+    flex-grow: 1;
+  }
+
+  .v-center {
+    @extend .flex;
+    align-items: center;
+  }
+
+  .space-between {
+    @extend .flex;
+    justify-content: space-between;
+  }
+
+  .align-right {
+    @extend .flex;
+    justify-content: flex-end;
+  }
+
+
+  .h-center {
+    @extend .flex;
+    justify-content: center;
+  }
+
+  .all-center {
+    @extend .v-center;
+    @extend .h-center;
+  }
+
+  .flex-break {
+    flex-basis: 100%;
+    width: 0;
+  }
+
+  .full-height {
+    height: calc(100vh - var(--header-height));
+  }
+}
+
+@mixin responsive-grid($columns) {
+  display: grid;
+  width: 100%;
+  justify-content: space-between;
+  justify-items: center;
+
+  $horizontal-gap: 30px;
+  $vertical-gap: 30px;
+  $column-percentage: (100 / $columns);
+
+  @if ($columns == 1) {
+    grid-template-columns: repeat($columns, calc(#{$column-percentage}%));
+  } @else {
+    grid-template-columns: repeat($columns, calc(#{$column-percentage}% - #{$horizontal-gap}));
+  }
+  column-gap: $horizontal-gap;
+  row-gap: $vertical-gap;
+}

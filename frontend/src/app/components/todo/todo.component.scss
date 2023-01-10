@@ -1,0 +1,45 @@
+::ng-deep app-todo {
+  tui-input-tag {
+    .content {
+      padding-left: 8px !important;
+    }
+  }
+
+  tui-wrapper[data-appearance="textfield"] {
+    background-color: transparent !important;
+  }
+}
+
+.todo-image {
+  margin-top: -1rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  width: calc(100% + 2rem);
+}
+
+.todo-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.top-right {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+}
+
+.top-left {
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+}
+
+.tags {
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+  left: 1rem;
+  padding-bottom: 1rem
+}

@@ -1,0 +1,8 @@
+<h3 class="no-margin-top">Tags:</h3>
+<section>
+  <form [formGroup]="formGroup">
+    <tui-checkbox-labeled *ngFor="let tag of tags$ | async" size="l" [formControlName]="tag" class="padding-bottom">
+      {{tag}}
+    </tui-checkbox-labeled>
+  </form>
+</section>
