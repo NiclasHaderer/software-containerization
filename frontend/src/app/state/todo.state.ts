@@ -146,7 +146,7 @@ export class TodoStore extends Store<TodoState, StoreDispatcher, StoreSelector> 
       dispatcher: new StoreDispatcher(todoApi, router)
     })
 
-    const account = window["localStorage"].getItem("user")
+    const account = localStorage.getItem("user")
     if (account) this.patch(JSON.parse(account), "account")
   }
 }

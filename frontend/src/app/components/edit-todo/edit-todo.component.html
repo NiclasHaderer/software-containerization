@@ -6,12 +6,10 @@
     <tui-error [error]="[] | tuiFieldError | async" formControlName="heading"></tui-error>
   </div>
   <tui-input class="full-form-width" formControlName="image" tuiTextfieldSize="m">Image URL</tui-input>
-  <!-- TODO: (Taiga UI migration) Use property [separator] to forbid spaces. See example: https://taiga-ui.dev/components/input-tag#no-spaces-inside-tags -->
 <tui-input-tag
     class="full-form-width"
     formControlName="tags"
     tuiTextfieldSize="m"
-    [allowSpaces]="true"
     [tuiTextfieldLabelOutside]="true"
     (searchChange)="search = $event"
   >
@@ -24,29 +22,29 @@
       <tip-format-control></tip-format-control>
       <tip-control-text-align></tip-control-text-align>
       <tip-control-underline>
-        <tui-svg src="tuiIconUnderlineLarge"></tui-svg>
+        <!--        <tui-svg src="tuiIconUnderlineLarge"></tui-svg>-->
       </tip-control-underline>
       <tip-control-italic>
-        <tui-svg src="tuiIconItalicLarge"></tui-svg>
+        <!--        <tui-svg src="tuiIconItalicLarge"></tui-svg>-->
       </tip-control-italic>
       <tip-control-bold>
-        <tui-svg src="tuiIconBoldLarge"></tui-svg>
+        <!--        <tui-svg src="tuiIconBoldLarge"></tui-svg>-->
       </tip-control-bold>
       <tip-util-vr></tip-util-vr>
       <!--  right  -->
       <tip-util-spacer></tip-util-spacer>
       <tip-util-vr></tip-util-vr>
       <tip-bullet-list-control>
-        <tui-svg src="tuiIconViewListLarge"></tui-svg>
+        <!--        <tui-svg src="tuiIconViewListLarge"></tui-svg>-->
       </tip-bullet-list-control>
       <tip-control-number-list>
-        <tui-svg src="tuiIconOLLarge"></tui-svg>
+        <!--        <tui-svg src="tuiIconOLLarge"></tui-svg>-->
       </tip-control-number-list>
       <tip-control-task>
-        <tui-svg src="tuiIconCheckCircle"></tui-svg>
+        <!--        <tui-svg src="tuiIconCheckCircle"></tui-svg>-->
       </tip-control-task>
       <tip-control-link>
-        <tui-svg src="tuiIconLink"></tui-svg>
+        <!--        <tui-svg src="tuiIconLink"></tui-svg>-->
       </tip-control-link>
     </tip-editor-header>
     <tip-editor-body maxHeight="60vh" minHeight="30vh"></tip-editor-body>

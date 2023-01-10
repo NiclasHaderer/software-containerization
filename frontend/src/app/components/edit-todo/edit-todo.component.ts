@@ -26,9 +26,10 @@ export class EditTodoComponent implements OnInit {
   @ViewChild(EditorComponent) private editor!: EditorComponent;
 
   constructor(
-    @Inject(POLYMORPHEUS_CONTEXT) public readonly context: TuiDialogContext<void | PostTodo, TodoComponent>,
+    @Inject(POLYMORPHEUS_CONTEXT) public readonly context: TuiDialogContext<undefined | PostTodo, undefined |TodoComponent>,
     private store: TodoStore
   ) {
+    console.log(context.data)
   }
 
   public ngOnInit(): void {

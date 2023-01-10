@@ -1,7 +1,7 @@
 <img *ngIf="todo.imageUrl" class="todo-image" [src]="todo.imageUrl" alt="">
-<tui-marker-icon class="top-right" src="tuiIconTrash" size="xs" tuiColor="error"
+<tui-marker-icon class="top-right" src="tuiIconTrash" size="xs" style="background-color: var(--tui-error-fill)"
                  (click)="deleteTodo()"></tui-marker-icon>
-<tui-marker-icon class="top-left" src="tuiIconEdit" size="xs" tuiColor="secondary"
+<tui-marker-icon class="top-left" src="tuiIconEdit" size="xs" style="background-color: var(--tui-secondary)"
                  (click)="editTodo()"></tui-marker-icon>
 
 <div [style]="{paddingBottom: tags.clientHeight + 'px'}">
@@ -12,12 +12,10 @@
 </div>
 
 <div class="flex v-center tags" #tags>
-  <!-- TODO: (Taiga UI migration) Use property [separator] to forbid spaces. See example: https://taiga-ui.dev/components/input-tag#no-spaces-inside-tags -->
 <tui-input-tag
     class="flex-grow"
     [formControl]="control"
     tuiTextfieldSize="s"
-    [allowSpaces]="true"
     [tuiTextfieldLabelOutside]="true"
     (searchChange)="search = $event"
   >
