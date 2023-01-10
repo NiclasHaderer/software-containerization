@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
-from views import views
+
+from todo_api.views import router
 
 middleware = [
     Middleware(CORSMiddleware,
@@ -14,4 +15,4 @@ middleware = [
 
 app = FastAPI(middleware=middleware)
 
-app.include_router(views.router)
+app.include_router(router)

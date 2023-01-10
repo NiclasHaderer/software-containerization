@@ -1,7 +1,7 @@
 from typing import List
 
-from database import TODO_TABLE
-from views.models import ReturnTodo
+from todo_api.database import TODO_TABLE
+from todo_api.views.models import ReturnTodo
 
 
 def retrieve_todo(todo_id: int) -> ReturnTodo:

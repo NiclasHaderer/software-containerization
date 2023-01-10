@@ -1,8 +1,9 @@
 import os
 from pathlib import Path
 
-from settings import SETTINGS
 from tinydb import TinyDB
+
+from todo_api.settings import SETTINGS
 
 path = Path(os.path.realpath(SETTINGS.db_folder))
 full_path = f"{path.absolute()}/database.json"

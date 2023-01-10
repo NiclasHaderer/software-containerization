@@ -3,9 +3,9 @@ from typing import List
 
 from fastapi import APIRouter, HTTPException
 
-from database import TODO_TABLE
-from .helpers import retrieve_todo, get_todos_from_db
-from .models import PartialTodo, ReturnTodo, PostTodo, ToDo, OrderBy
+from todo_api.database import TODO_TABLE
+from todo_api.views.helpers import retrieve_todo, get_todos_from_db
+from todo_api.views.models import PartialTodo, ReturnTodo, PostTodo, ToDo, OrderBy
 
 router = APIRouter()
 
