@@ -1,8 +1,7 @@
 import {Injectable} from "@angular/core"
-import {Router} from "@angular/router"
 import {Store, StoreContext} from "rx-observable-state"
 import {lastValueFrom} from "rxjs"
-import {PostTodo, Todo, UserAccount} from "../models/api-response.model"
+import {PostTodo, Todo} from "../models/api-response.model"
 import {TodoApiService} from "../services/todo-api.service"
 import {TodoState} from "./state.model"
 
@@ -23,18 +22,7 @@ class StoreSelector {
 }
 
 class StoreDispatcher {
-  constructor(private todoApi: TodoApiService, private router: Router) {
-  }
-
-  public async login(context: TodoStoreContext, username: string, password: string, rememberLogin: boolean) {
-    const account: UserAccount = await lastValueFrom(this.todoApi.login(username, password))
-    context.patch(account, "account")
-    if (rememberLogin) localStorage.setItem("user", JSON.stringify(account))
-  }
-
-  public async getAccount(context: TodoStoreContext): Promise<void> {
-    const account = await lastValueFrom(this.todoApi.getAccount())
-    context.patch(account, "account")
+  constructor(private todoApi: TodoApiService) {
   }
 
   public async getTodos(context: TodoStoreContext): Promise<void> {
@@ -104,22 +92,6 @@ class StoreDispatcher {
     context.patch(tags, "tags")
   }
 
-
-  public async createAccount(context: TodoStoreContext, username: string, password: string): Promise<null> {
-    return lastValueFrom(this.todoApi.createAccount(username, password))
-  }
-
-  public async logout(context: TodoStoreContext): Promise<void> {
-    context.setState({
-      todo: {},
-      tags: [],
-      account: null,
-      filterTags: []
-    })
-    localStorage.removeItem("user")
-    await this.router.navigate(["/logout"])
-  }
-
   public filterByTag(context: TodoStoreContext, tags: Record<string, boolean>): void {
     const selectedTags = []
     for (const tag of Object.keys(tags)) {
@@ -134,19 +106,14 @@ class StoreDispatcher {
 export class TodoStore extends Store<TodoState, StoreDispatcher, StoreSelector> {
   constructor(
     private todoApi: TodoApiService,
-    private router: Router
   ) {
     super({
       todo: {},
       tags: [],
-      account: null,
       filterTags: []
     }, {
       selector: new StoreSelector(),
-      dispatcher: new StoreDispatcher(todoApi, router)
+      dispatcher: new StoreDispatcher(todoApi)
     })
-
-    const account = localStorage.getItem("user")
-    if (account) this.patch(JSON.parse(account), "account")
   }
 }

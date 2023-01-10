@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
-from todo_api.middleware import AuthenticationMiddleware
 from views import views
 
 middleware = [
@@ -11,7 +10,6 @@ middleware = [
                allow_credentials=True,
                allow_methods=["*"]
                ),
-    Middleware(AuthenticationMiddleware)
 ]
 
 app = FastAPI(middleware=middleware)

@@ -42,8 +42,6 @@ import {CardComponent} from './components/card/card.component';
 import {FabComponent} from './components/fab/fab.component';
 import {TagSelectionComponent} from './components/tag-selection/tag-selection.component';
 import {HomeComponent} from './components/home-component/home.component';
-import {LoginComponent} from './components/login/login.component';
-import {AUTH_ERROR_PROVIDER, AUTH_INTERCEPTOR_PROVIDER} from './auth/auth.interceptor';
 import {EditTodoComponent} from './components/edit-todo/edit-todo.component';
 
 @NgModule({
@@ -57,7 +55,6 @@ import {EditTodoComponent} from './components/edit-todo/edit-todo.component';
     FabComponent,
     TagSelectionComponent,
     HomeComponent,
-    LoginComponent,
     EditTodoComponent,
   ],
   imports: [
@@ -91,11 +88,9 @@ import {EditTodoComponent} from './components/edit-todo/edit-todo.component';
     NgxTipTapEditorModule,
     TuiFieldErrorPipeModule,
     TuiErrorModule
-],
-  providers: [
-    AUTH_INTERCEPTOR_PROVIDER,
-    AUTH_ERROR_PROVIDER
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

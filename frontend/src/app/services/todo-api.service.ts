@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { cache } from '../helpers/cache';
-import { PostTodo, Todo, UserAccount } from '../models/api-response.model';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {PostTodo, Todo} from '../models/api-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,20 +14,10 @@ export class TodoApiService {
   ) {
   }
 
-  public login(username: string, password: string): Observable<UserAccount> {
-    return this.http.post<UserAccount>(`${environment.apiURL}/login`, {username, password});
-  }
-
-  @cache()
-  public getAccount(): Observable<UserAccount> {
-    return this.http.get<UserAccount>(`${environment.apiURL}/account`);
-  }
-
   public getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(`${environment.apiURL}/todo`);
   }
 
-  @cache()
   public getTodo(todoID: number): Observable<Todo> {
     return this.http.get<Todo>(`${environment.apiURL}/todo/${todoID}`);
   }
@@ -43,10 +32,6 @@ export class TodoApiService {
 
   public createTodo(todo: PostTodo): Observable<Todo> {
     return this.http.post<Todo>(`${environment.apiURL}/todo/`, todo);
-  }
-
-  public createAccount(username: string, password: string): Observable<null> {
-    return this.http.post<null>(`${environment.apiURL}/create-account/`, {username, password});
   }
 
   public getTags(): Observable<string[]> {
