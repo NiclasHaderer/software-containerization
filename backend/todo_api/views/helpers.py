@@ -1,6 +1,5 @@
 from typing import List
 
-from todo_api.database import TODO_TABLE
 from todo_api.views.models import ReturnTodo
 
 

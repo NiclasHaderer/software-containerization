@@ -3,7 +3,6 @@ from typing import List
 
 from fastapi import APIRouter, HTTPException
 
-from todo_api.database import TODO_TABLE
 from todo_api.views.helpers import retrieve_todo, get_todos_from_db
 from todo_api.views.models import PartialTodo, ReturnTodo, PostTodo, ToDo, OrderBy
 

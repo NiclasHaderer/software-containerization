@@ -1,3 +1,4 @@
 .idea
 *.zip
 database.json
+/out/production/software-containerization/
