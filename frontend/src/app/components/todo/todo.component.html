@@ -1,23 +1,23 @@
-<img *ngIf="todo.imageUrl" class="todo-image" [src]="todo.imageUrl" alt="">
-<tui-marker-icon class="top-right" src="tuiIconTrash" size="xs" style="background-color: var(--tui-error-fill)"
-                 (click)="deleteTodo()"></tui-marker-icon>
-<tui-marker-icon class="top-left" src="tuiIconEdit" size="xs" style="background-color: var(--tui-secondary)"
-                 (click)="editTodo()"></tui-marker-icon>
+<img *ngIf="todo.image_url" [src]="todo.image_url" alt="" class="todo-image">
+<tui-marker-icon (click)="deleteTodo()" class="top-right" size="xs" src="tuiIconTrash"
+                 style="background-color: var(--tui-error-fill)"></tui-marker-icon>
+<tui-marker-icon (click)="editTodo()" class="top-left" size="xs" src="tuiIconEdit"
+                 style="background-color: var(--tui-secondary)"></tui-marker-icon>
 
 <div [style]="{paddingBottom: tags.clientHeight + 'px'}">
   <h3 class="no-margin-top text-center">{{todo.heading}}</h3>
   <tui-scrollbar class="todo-text padding-bottom">
-    <tip-editor-preview [sanitizeHtml]="false" [extensions]="extensions" [content]="todo.content"></tip-editor-preview>
+    <tip-editor-preview [content]="todo.content" [extensions]="extensions" [sanitizeHtml]="false"></tip-editor-preview>
   </tui-scrollbar>
 </div>
 
-<div class="flex v-center tags" #tags>
-<tui-input-tag
-    class="flex-grow"
-    [formControl]="control"
-    tuiTextfieldSize="s"
-    [tuiTextfieldLabelOutside]="true"
+<div #tags class="flex v-center tags">
+  <tui-input-tag
     (searchChange)="search = $event"
+    [formControl]="control"
+    [tuiTextfieldLabelOutside]="true"
+    class="flex-grow"
+    tuiTextfieldSize="s"
   >
     Tags:
     <tui-data-list-wrapper
@@ -26,5 +26,5 @@
     ></tui-data-list-wrapper>
   </tui-input-tag>
   <div class="flex-break"></div>
-  <small class="padding-left">Created: {{todo.date * 1000 | date}}</small>
+  <small class="padding-left">Created: {{todo.created * 1000 | date}}</small>
 </div>

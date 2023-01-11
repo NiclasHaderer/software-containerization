@@ -9,6 +9,7 @@ class _Settings(BaseSettings):
     db_password = Field("super_secret", env="DB_PASSWORD")
     db_driver = Field("postgresql+aiopg", env="DB_DRIVER")
     db_uri = Field("127.0.0.1:5432", env="DB_URI")
+    single_node = Field(True, env="SINGLE_NODE")
 
     @property
     def db_connection(self) -> str:

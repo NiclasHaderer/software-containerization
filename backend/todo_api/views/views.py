@@ -1,42 +1,35 @@
-import time
 from typing import List
+from uuid import UUID
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 
-from todo_api.views.helpers import retrieve_todo, get_todos_from_db
-from todo_api.views.models import PartialTodo, ReturnTodo, PostTodo, ToDo, OrderBy
+from todo_api.views.helpers import retrieve_todo, get_todos_from_db, save_todo, delete_todo as delete_todo_db
+from todo_api.views.models import PartialTodo, ReturnTodo, PostToDo, OrderBy
 
 router = APIRouter()
 
 
 @router.get("/todo/{todo_id}", response_model=ReturnTodo)
-async def get_todo(todo_id: int) -> ReturnTodo:
-    todo_db = TODO_TABLE.get(todo_id)
-
-    if not todo_db:
-        raise HTTPException(404, "Item not found")
-
-    return ReturnTodo(**todo_db)
+async def get_todo(todo_id: UUID) -> ReturnTodo:
+    return await retrieve_todo(todo_id)
 
 
 @router.patch("/todo/{todo_id}", response_model=ReturnTodo)
-async def update_todo(todo_id: int, partial_todo: PartialTodo) -> ReturnTodo:
-    todo = retrieve_todo(todo_id)
+async def update_todo(todo_id: UUID, partial_todo: PartialTodo) -> ReturnTodo:
+    todo = await retrieve_todo(todo_id)
     todo.merge_in(partial_todo)
-    todo_dict = todo.dict()
-    del todo_dict["id"]
-    TODO_TABLE.update(todo_dict, doc_ids=[todo_id])
+    await save_todo(todo)
     return todo
 
 
 @router.delete("/todo/{todo_id}")
-async def delete_todo(todo_id: int) -> None:
-    TODO_TABLE.remove(doc_ids=[todo_id])
+async def delete_todo(todo_id: UUID) -> None:
+    await delete_todo_db(todo_id)
 
 
 @router.get("/todo", response_model=List[ReturnTodo])
 async def get_todos(order: OrderBy = None, reverse: bool = False) -> List[ReturnTodo]:
-    todo_items = get_todos_from_db()
+    todo_items = await get_todos_from_db()
 
     if order:
         todo_items.sort(key=lambda item: getattr(item, order.value()), reverse=reverse)
@@ -45,15 +38,13 @@ async def get_todos(order: OrderBy = None, reverse: bool = False) -> List[Return
 
 
 @router.post("/todo", response_model=ReturnTodo)
-async def create_todo(post_todo: PostTodo) -> ReturnTodo:
-    todo = ToDo(**post_todo.dict(), date=time.time())
-    todo_id = TODO_TABLE.insert(todo.dict())
-    return ReturnTodo(**todo.dict(), id=todo_id)
+async def create_todo(post_todo: PostToDo) -> ReturnTodo:
+    return await save_todo(post_todo)
 
 
 @router.get("/tags", response_model=List[str])
 async def get_tags() -> List[str]:
-    todo_list = get_todos_from_db()
+    todo_list = await get_todos_from_db()
 
     tag_list: List[str] = []
     for todo in todo_list:
@@ -65,7 +56,7 @@ async def get_tags() -> List[str]:
 
 @router.get("/tags/{tag}", response_model=List[ReturnTodo])
 async def get_tag(tag: str) -> List[ReturnTodo]:
-    todo_list = get_todos_from_db()
+    todo_list = await get_todos_from_db()
 
     return_list: List[ReturnTodo] = []
 
@@ -78,7 +69,7 @@ async def get_tag(tag: str) -> List[ReturnTodo]:
 
 @router.get("/search", response_model=List[ReturnTodo])
 async def search(q: str) -> List[ReturnTodo]:
-    todo_list = get_todos_from_db()
+    todo_list = await get_todos_from_db()
 
     return_list: List[ReturnTodo] = []
 

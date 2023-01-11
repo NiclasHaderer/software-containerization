@@ -2,7 +2,15 @@ from fastapi import FastAPI
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 
+from todo_api.database.migrate import run_migrations
+from todo_api.settings import SETTINGS
 from todo_api.views import router
+
+
+async def run_migrations_if_single_node():
+    if SETTINGS.single_node:
+        await run_migrations()
+
 
 middleware = [
     Middleware(
@@ -14,6 +22,6 @@ middleware = [
     ),
 ]
 
-app = FastAPI(middleware=middleware)
+app = FastAPI(middleware=middleware, on_startup=[run_migrations_if_single_node])
 
 app.include_router(router)
