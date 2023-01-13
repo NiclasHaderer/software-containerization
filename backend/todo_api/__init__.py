@@ -12,15 +12,15 @@ async def run_migrations_if_single_node():
         await run_migrations()
 
 
-middleware = [
-    Middleware(
+middleware = []
+if not SETTINGS.production:
+    middleware.append(Middleware(
         CORSMiddleware,
         allow_origin_regex="(https?:\/\/)?(localhost|127\.0\.0\.1)(:[0-9]{2,5})?",
         allow_headers=["*"],
         allow_credentials=True,
         allow_methods=["*"],
-    ),
-]
+    ))
 
 app = FastAPI(middleware=middleware, on_startup=[run_migrations_if_single_node])
 

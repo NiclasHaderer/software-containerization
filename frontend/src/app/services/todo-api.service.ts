@@ -31,7 +31,7 @@ export class TodoApiService {
   }
 
   public createTodo(todo: PostTodo): Observable<Todo> {
-    return this.http.post<Todo>(`${environment.apiURL}/todo/`, todo);
+    return this.http.post<Todo>(`${environment.apiURL}/todo`, todo);
   }
 
   public getTags(): Observable<string[]> {

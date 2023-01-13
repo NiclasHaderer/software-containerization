@@ -1,8 +1,8 @@
 <img *ngIf="todo.image_url" [src]="todo.image_url" alt="" class="todo-image">
 <tui-marker-icon (click)="deleteTodo()" class="top-right" size="xs" src="tuiIconTrash"
-                 style="background-color: var(--tui-error-fill)"></tui-marker-icon>
+                 style="background-color: var(--tui-error-bg-hover)"></tui-marker-icon>
 <tui-marker-icon (click)="editTodo()" class="top-left" size="xs" src="tuiIconEdit"
-                 style="background-color: var(--tui-secondary)"></tui-marker-icon>
+                 style="background-color: var(--tui-info-bg)"></tui-marker-icon>
 
 <div [style]="{paddingBottom: tags.clientHeight + 'px'}">
   <h3 class="no-margin-top text-center">{{todo.heading}}</h3>

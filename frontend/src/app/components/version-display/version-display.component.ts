@@ -1,18 +1,18 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {filter, Subscription} from "rxjs";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-version',
   template: `
-    Backend Version: {{version}}
+    <span (click)="toggleVersionCheck()">Backend Version: {{version}}</span>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VersionDisplayComponent implements OnInit, OnDestroy {
   protected version: string | undefined
-  private subscription: Subscription | undefined;
+  private intervalID: number | undefined
 
   constructor(
     private http: HttpClient,
@@ -22,18 +22,15 @@ export class VersionDisplayComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit() {
-    this.ngZone.runOutsideAngular(() => {
-      this.checkForVersionChange()
-      setInterval(() => this.checkForVersionChange(), 1000)
-    })
+    this.ngZone.runOutsideAngular(() => this.startVersionCheck())
   }
 
   public ngOnDestroy() {
-    this.subscription?.unsubscribe()
+    clearInterval(this.intervalID)
   }
 
   public checkForVersionChange() {
-    this.subscription = this.http.get<{ version: string }>(`${environment.apiURL}/version`).pipe(
+    this.http.get<{ version: string }>(`${environment.apiURL}/version`).pipe(
       filter(({version}) => version !== this.version)
     ).subscribe(({version}) => {
       this.version = version;
@@ -41,4 +38,17 @@ export class VersionDisplayComponent implements OnInit, OnDestroy {
     })
   }
 
+  protected toggleVersionCheck() {
+    if (this.intervalID) {
+      clearInterval(this.intervalID)
+      this.intervalID = undefined
+    } else {
+      this.startVersionCheck()
+    }
+  }
+
+  private startVersionCheck() {
+    this.checkForVersionChange()
+    this.intervalID = setInterval(() => this.checkForVersionChange(), 1000) as unknown as number
+  }
 }

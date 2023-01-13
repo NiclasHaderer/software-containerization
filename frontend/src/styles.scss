@@ -1,14 +1,14 @@
 @use "node_modules/ngx-tiptap-editor/editor";
-@import "src/scss/helpers";
-@import "src/scss/global-fixes";
+@use "src/scss/helpers";
+@use "src/scss/global-fixes";
 
 :root {
   --header-height: 64px;
   --shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
 }
 
-@include include-helpers();
-@include fixes();
+@include helpers.include-helpers();
+@include global-fixes.fixes();
 
 @include editor.import-theme();
 @include editor.remove-focus-ring();

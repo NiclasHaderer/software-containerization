@@ -2,4 +2,7 @@
   <app-card *ngFor="let todo of todoList$ | async" [fullWidth]="true">
     <app-todo [todo]="todo"></app-todo>
   </app-card>
+  <ng-container *ngIf="(todoList$ | async)?.length === 0">
+    <h2 style="grid-column-start: 1; grid-column-end: 5;">Create a Note to view them here</h2>
+  </ng-container>
 </div>

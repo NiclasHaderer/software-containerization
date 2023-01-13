@@ -1,8 +1,12 @@
 <h3 class="no-margin-top">Tags:</h3>
 <section>
   <form [formGroup]="formGroup">
-    <tui-checkbox-labeled *ngFor="let tag of tags$ | async" size="l" [formControlName]="tag" class="padding-bottom">
+    <tui-checkbox-labeled *ngFor="let tag of tags$ | async" [formControlName]="tag" class="padding-bottom" size="l">
       {{tag}}
     </tui-checkbox-labeled>
+    <ng-container *ngIf="(tags$ | async)?.length === 0">
+      <p>Not available</p>
+      <p>Tag one of your notes to view the tags here</p>
+    </ng-container>
   </form>
 </section>
