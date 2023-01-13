@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  todo_postgres:
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: "super_secret"
+      POSTGRES_USER: "todo_user"
+      POSTGRES_DB: "todo"
+
+  backend:
+    image: containerization-backend
+    environment:
+      PRODUCTION: "true"
+      DB_USER: "todo_user"
+      DB_PASSWORD: "super_secret"
+      DB_DRIVER: "postgresql+aiopg"
+      DB_URI: "todo_postgres:5432"
+      SINGLE_NODE: "true"
+
+  frontend:
+    image: containerization-frontend
+    depends_on:
+      - todo_postgres
+
+  proxy:
+    image: nginx
+    ports:
+      - "1234:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+      - frontend
+      - todo_postgres
