@@ -23,7 +23,7 @@ services:
       - todo_postgres
 
   proxy:
-    image: nginx
+    image: nginx:1.23-alpine
     ports:
       - "1234:80"
     volumes:
