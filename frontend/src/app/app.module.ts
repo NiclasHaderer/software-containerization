@@ -43,6 +43,7 @@ import {FabComponent} from './components/fab/fab.component';
 import {TagSelectionComponent} from './components/tag-selection/tag-selection.component';
 import {HomeComponent} from './components/home-component/home.component';
 import {EditTodoComponent} from './components/edit-todo/edit-todo.component';
+import {VersionDisplayComponent} from "./components/version-display/version-display.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import {EditTodoComponent} from './components/edit-todo/edit-todo.component';
     TagSelectionComponent,
     HomeComponent,
     EditTodoComponent,
+    VersionDisplayComponent
   ],
   imports: [
     TuiAlertModule,

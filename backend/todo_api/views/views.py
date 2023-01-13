@@ -4,7 +4,7 @@ from uuid import UUID
 from fastapi import APIRouter
 
 from todo_api.views.helpers import retrieve_todo, get_todos_from_db, save_todo, delete_todo as delete_todo_db
-from todo_api.views.models import PartialTodo, ReturnTodo, PostToDo, OrderBy
+from todo_api.views.models import PartialTodo, ReturnTodo, PostToDo, OrderBy, VersionResponse
 
 router = APIRouter()
 
@@ -78,3 +78,8 @@ async def search(q: str) -> List[ReturnTodo]:
             return_list.append(todo)
 
     return return_list
+
+
+@router.get("/version", response_model=VersionResponse)
+def get_version() -> VersionResponse:
+    return VersionResponse(version="1.0.0")

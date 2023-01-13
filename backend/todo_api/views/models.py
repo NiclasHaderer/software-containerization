@@ -52,3 +52,7 @@ class ReturnTodo(PostToDo):
 class OrderBy(Enum):
     date = "date"
     title = "title"
+
+
+class VersionResponse(BaseModel):
+    version: str
