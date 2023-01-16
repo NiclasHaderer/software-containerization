@@ -1,5 +1,18 @@
+pvc:
+  name: pvc-my-notes
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  storageClass: ""
+
 postgresql:
+  primary:
+    persistence:
+      size: 1Gi
+      existingClaim: pvc-my-notes
   auth:
+    enablePostgresUser: false
     username: u_notes
+    database: notes
+    existingSecret: pg-user-password
     secretKeys:
-      userPasswordKey: pg-user-password
+      userPasswordKey: user-password
