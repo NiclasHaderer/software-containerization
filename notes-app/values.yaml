@@ -1,0 +1,5 @@
+postgresql:
+  auth:
+    username: u_notes
+    secretKeys:
+      userPasswordKey: pg-user-password

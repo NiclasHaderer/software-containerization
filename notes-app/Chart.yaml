@@ -1,6 +1,10 @@
 apiVersion: v2
 name: notes-app
 description: A Helm chart for Kubernetes
+dependencies:
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 12.1.9
 
 # A chart can be either an 'application' or a 'library' chart.
 #
