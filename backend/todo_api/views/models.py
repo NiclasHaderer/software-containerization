@@ -7,11 +7,6 @@ from uuid import UUID
 from pydantic import BaseModel, Field
 
 
-class PasswordChange(BaseModel):
-    old_password: str
-    new_password: str
-
-
 class PartialTodo(BaseModel):
     heading: Optional[str]
     content: Optional[str]

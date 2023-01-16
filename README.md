@@ -2,8 +2,6 @@
 
 ## Backend
 
-Basic todo app with authentication which is not alt all secure and encodes the username and the password to a token ;)
-
 ## Frontend
 
 Angular App which uses the backend to show some todo items

@@ -18,8 +18,7 @@ async def get_todo(todo_id: UUID) -> ReturnTodo:
 async def update_todo(todo_id: UUID, partial_todo: PartialTodo) -> ReturnTodo:
     todo = await retrieve_todo(todo_id)
     todo.merge_in(partial_todo)
-    await save_todo(todo)
-    return todo
+    return await save_todo(todo)
 
 
 @router.delete("/todo/{todo_id}")

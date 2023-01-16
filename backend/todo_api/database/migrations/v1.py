@@ -1,10 +1,6 @@
 from databases import Database
 
 
-# class PostTodo(BaseModel):
-#     tags: List[str] = Field(default_factory=list)
-
-
 async def migrate(db: Database):
     await db.execute("""CREATE TABLE todos
 (
