@@ -7,7 +7,6 @@ pvc:
 postgresql:
   primary:
     persistence:
-      size: 1Gi
       existingClaim: pvc-my-notes
   auth:
     enablePostgresUser: false
