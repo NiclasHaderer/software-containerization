@@ -19,3 +19,4 @@ class _Settings(BaseSettings):
 
 
 SETTINGS = _Settings()
+print(SETTINGS)

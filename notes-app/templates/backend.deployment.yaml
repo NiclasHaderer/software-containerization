@@ -19,20 +19,19 @@ spec:
         - name: gcr-secret
       containers:
         - name: backend-container
-          image: gcr.io/containerisation/containerization-backend:latest
+          image: containerization-backend
+          imagePullPolicy: Never
           env:
-            - name: GET_HOSTS_FROM
-              value: "dns"
             - name: PRODUCTION
               value: "true"
             - name: DB_USER
-              value: "todo_user"
+              value: "u_notes"
             - name: DB_PASSWORD
               value: "super_secret"
             - name: DB_DRIVER
               value: "postgresql+aiopg"
             - name: DB_URI
-              value: "todo_postgres:5432"
+              value: "my-notes-postgresql:5432"
             - name: SINGLE_NODE
               value: "true"
 
