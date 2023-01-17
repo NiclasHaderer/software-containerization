@@ -1,0 +1,47 @@
+# SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: software-containerization
+      tier: backend-api
+  template:
+    metadata:
+      labels:
+        app: software-containerization
+        tier: backend-api
+    spec:
+      imagePullSecrets:
+        - name: gcr-secret
+      containers:
+        - name: backend-container
+          image: gcr.io/containerisation/containerization-backend:latest
+          env:
+            - name: GET_HOSTS_FROM
+              value: "dns"
+            - name: PRODUCTION
+              value: "true"
+            - name: DB_USER
+              value: "todo_user"
+            - name: DB_PASSWORD
+              value: "super_secret"
+            - name: DB_DRIVER
+              value: "postgresql+aiopg"
+            - name: DB_URI
+              value: "todo_postgres:5432"
+            - name: SINGLE_NODE
+              value: "true"
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 8000
+
+
+# kubectl apply -f https://k8s.io/examples/application/guestbook/redis-leader-deployment.yaml
