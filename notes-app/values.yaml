@@ -6,6 +6,8 @@ pvc:
 postgresql:
   fullnameOverride: notes-app-postgresql
   primary:
+    podLabels:
+      app: notes-app-postgresql
     persistence:
       existingClaim: notes-app-postgresql
   auth:
