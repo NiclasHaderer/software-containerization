@@ -1,13 +1,13 @@
 pvc:
-  name: pvc-my-notes
   accessMode: ReadWriteOnce
   size: 1Gi
   storageClass: ""
 
 postgresql:
+  fullnameOverride: notes-app-postgresql
   primary:
     persistence:
-      existingClaim: pvc-my-notes
+      existingClaim: notes-app-postgresql
   auth:
     enablePostgresUser: false
     username: u_notes
@@ -15,7 +15,6 @@ postgresql:
     existingSecret: pg-user-password
     secretKeys:
       userPasswordKey: user-password
-
 backend:
   deployment:
     image:
@@ -27,7 +26,8 @@ backend:
       dbUser: u_notes
       dbPassword: super_secret
       dbDriver: postgresql+aiopg
-      dbUri: my-notes-postgresql:5432
+      dbHost: notes-app-postgresql
+      dbPort: 5432
       singleNode: true
     ports:
       containerPort: 8000

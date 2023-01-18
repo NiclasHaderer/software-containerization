@@ -32,8 +32,10 @@ spec:
               value: "{{.Values.backend.deployment.env.dbPassword}}"
             - name: DB_DRIVER
               value: "{{.Values.backend.deployment.env.dbDriver}}"
-            - name: DB_URI
-              value: "{{.Values.backend.deployment.env.dbUri}}"
+            - name: DB_HOST
+              value: "{{.Values.backend.deployment.env.dbHost}}"
+            - name: DB_PORT
+              value: "{{.Values.backend.deployment.env.dbPort}}"
             - name: SINGLE_NODE
               value: "{{.Values.backend.deployment.env.singleNode}}"
             - name: DB_NAME
@@ -42,6 +44,11 @@ spec:
           ports:
             - containerPort: {{.Values.backend.deployment.ports.containerPort}}
       initContainers:
-        - name: wait-for-postgres
+        - name: {{.Chart.Name}}-wait-for-postgresql
           image: busybox
-          command: [ "sh", "-c", "until nc -z my-notes-postgresql 5432; do echo waiting for postgres; sleep 1; done" ]
+          command: [ "sh", "-c", "until nc -z $DB_HOST $DB_PORT; do echo waiting for postgres; sleep 1; done" ]
+          env:
+            - name: DB_HOST
+              value: "{{.Values.backend.deployment.env.dbHost}}"
+            - name: DB_PORT
+              value: "{{.Values.backend.deployment.env.dbPort}}"
