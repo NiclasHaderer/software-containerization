@@ -18,13 +18,13 @@ postgresql:
 backend:
   deployment:
     image:
-      repository: containerization-backend
+      repository: gcr.io/containerisation/containerization-backend
+    # repository: containerization-backend
       tag: latest
-      pullPolicy: Never
+      pullPolicy: Always
     env:
       production: true
       dbUser: u_notes
-      dbPassword: super_secret
       dbDriver: postgresql+aiopg
       dbHost: notes-app-postgresql
       dbPort: 5432
