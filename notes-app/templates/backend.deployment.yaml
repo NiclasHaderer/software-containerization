@@ -15,32 +15,27 @@ spec:
         app: software-containerization
         tier: backend-api
     spec:
-      imagePullSecrets:
-        - name: gcr-secret
       containers:
         - name: backend-container
-          image: containerization-backend
-          imagePullPolicy: Never
+          image: "{{.Values.backend.deployment.image.repository}}:{{.Values.backend.deployment.image.tag}}"
+          imagePullPolicy: "{{.Values.backend.deployment.image.pullPolicy}}"
           env:
             - name: PRODUCTION
-              value: "true"
+              value: "{{.Values.backend.deployment.env.production}}"
             - name: DB_USER
-              value: "u_notes"
+              value: "{{.Values.backend.deployment.env.dbUser}}"
             - name: DB_PASSWORD
-              value: "super_secret"
+              value: "{{.Values.backend.deployment.env.dbPassword}}"
             - name: DB_DRIVER
-              value: "postgresql+aiopg"
+              value: "{{.Values.backend.deployment.env.dbDriver}}"
             - name: DB_URI
-              value: "my-notes-postgresql:5432"
+              value: "{{.Values.backend.deployment.env.dbUri}}"
             - name: SINGLE_NODE
-              value: "true"
+              value: "{{.Values.backend.deployment.env.singleNode}}"
 
-          resources:
-            requests:
-              cpu: 100m
-              memory: 100Mi
           ports:
-            - containerPort: 8000
+            - containerPort: {{.Values.backend.deployment.ports.containerPort}}
+
 
 
 # kubectl apply -f https://k8s.io/examples/application/guestbook/redis-leader-deployment.yaml

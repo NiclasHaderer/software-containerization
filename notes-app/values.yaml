@@ -15,3 +15,21 @@ postgresql:
     existingSecret: pg-user-password
     secretKeys:
       userPasswordKey: user-password
+
+backend:
+  deployment:
+    image:
+        repository: gcr.io/containerisation/containerization-backend
+        tag: latest
+        pullPolicy: Always
+    env:
+        production: true
+        dbUser: u_notes
+        dbPassword: super_secret
+        dbDriver: postgresql+aiopg
+        dbUri: my-notes-postgresql:5432
+        singleNode: true
+    ports:
+        containerPort: 8000
+
+
