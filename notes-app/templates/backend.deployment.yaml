@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: "{{.Values.backend.deployment.image.repository}}:{{.Values.backend.deployment.image.tag}}"
+          image: "{{.Values.backend.deployment.image.repository}}"
           imagePullPolicy: "{{.Values.backend.deployment.image.pullPolicy}}"
           env:
             - name: PRODUCTION
@@ -32,9 +32,16 @@ spec:
               value: "{{.Values.backend.deployment.env.dbUri}}"
             - name: SINGLE_NODE
               value: "{{.Values.backend.deployment.env.singleNode}}"
+            - name: DB_NAME
+              value: {{.Values.postgresql.auth.database}}
 
           ports:
             - containerPort: {{.Values.backend.deployment.ports.containerPort}}
+      initContainers:
+        - name: wait-for-postgres
+          image: busybox
+          command: [ "sh", "-c", "until nc -z my-notes-postgresql 5432; do echo waiting for postgres; sleep 1; done" ]
+
 
 
 

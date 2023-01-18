@@ -19,17 +19,17 @@ postgresql:
 backend:
   deployment:
     image:
-        repository: gcr.io/containerisation/containerization-backend
-        tag: latest
-        pullPolicy: Always
+      repository: containerization-backend
+      tag: latest
+      pullPolicy: Never
     env:
-        production: true
-        dbUser: u_notes
-        dbPassword: super_secret
-        dbDriver: postgresql+aiopg
-        dbUri: my-notes-postgresql:5432
-        singleNode: true
+      production: true
+      dbUser: u_notes
+      dbPassword: super_secret
+      dbDriver: postgresql+aiopg
+      dbUri: my-notes-postgresql:5432
+      singleNode: true
     ports:
-        containerPort: 8000
+      containerPort: 8000
 
 
