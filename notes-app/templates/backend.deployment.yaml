@@ -46,6 +46,15 @@ spec:
 
           ports:
             - containerPort: {{.Values.backend.deployment.ports.containerPort}}
+        # add live and readiness probes for google cloud load balancer
+        # https://cloud.google.com/kubernetes-engine/docs/how-to/container-health-checks
+          readinessProbe:
+            httpGet:
+              path: "/health-check"
+              port: 8000
+            initialDelaySeconds: 20
+            timeoutSeconds: 20
+
       initContainers:
         - name: {{.Chart.Name}}-wait-for-postgresql
           image: busybox
@@ -55,3 +64,4 @@ spec:
               value: "{{.Values.backend.deployment.env.dbHost}}"
             - name: DB_PORT
               value: "{{.Values.backend.deployment.env.dbPort}}"
+

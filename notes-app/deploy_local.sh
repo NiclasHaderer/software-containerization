@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Deploys the notes-app to a local kubernetes cluster using
+# minikube and helm.
+
 NAMESPACE="default"
 
 helm delete my-notes --namespace $NAMESPACE
