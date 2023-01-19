@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: deny-egress
+  name: backend-deny-egress
 spec:
   podSelector:
     matchLabels:
@@ -11,8 +11,11 @@ spec:
     - Egress
   egress:
     - to:
-        - podSelector:
-            matchLabels:
-              app: {{.Chart.Name}}-postgresql
-      ports:
-        - port: {{.Values.postgresql.containerPorts.postgresql}}
+      - podSelector:
+          matchLabels:
+            app: {{.Chart.Name}}-postgresql
+    - ports:
+        - port: 53
+          protocol: TCP
+        - port: 53
+          protocol: UDP
