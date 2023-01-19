@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: {{.Chart.Name}}-backend
-          image: "{{.Values.backend.deployment.image.repository}}:{{.Values.backend.deployment.image.tag}}"
+          image: "{{.Values.backend.deployment.image.tag}}:{{.Values.backend.deployment.image.version}}"
           imagePullPolicy: "{{.Values.backend.deployment.image.pullPolicy}}"
           env:
             - name: PRODUCTION
@@ -46,12 +46,12 @@ spec:
 
           ports:
             - containerPort: {{.Values.backend.deployment.ports.containerPort}}
-        # add live and readiness probes for google cloud load balancer
+        # add live and readiness probes for Google cloud load balancer
         # https://cloud.google.com/kubernetes-engine/docs/how-to/container-health-checks
           readinessProbe:
             httpGet:
               path: "/health-check"
-              port: 8000
+              port: {{.Values.backend.deployment.ports.containerPort}}
             initialDelaySeconds: 20
             timeoutSeconds: 20
 

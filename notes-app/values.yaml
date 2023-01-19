@@ -20,10 +20,11 @@ postgresql:
 backend:
   deployment:
     image:
-      repository: gcr.io/containerisation/containerization-backend
-    # repository: containerization-backend
-      tag: latest
+      tag: gcr.io/containerisation/containerization-backend
       pullPolicy: Always
+      version: latest
+      # repository: containerization-backend
+      # pullPolicy: Never
     env:
       production: true
       dbUser: u_notes
@@ -33,5 +34,14 @@ backend:
       singleNode: true
     ports:
       containerPort: 8000
-
+frontend:
+  deployment:
+    image:
+      # tag: gcr.io/containerisation/containerization-frontend
+      # pullPolicy: Always
+      version: latest
+      tag: containerization-frontend
+      pullPolicy: Never
+    ports:
+      containerPort: 80
 

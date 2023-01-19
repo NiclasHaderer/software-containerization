@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Chart.Name}}-frontend
+  labels:
+    app: {{ .Chart.Name }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Chart.Name}}-frontend
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: {{.Chart.Name}}-frontend
+        tier: frontend
+    spec:
+      containers:
+        - name: {{.Chart.Name}}-frontend
+          image: "{{.Values.frontend.deployment.image.tag}}:{{.Values.frontend.deployment.image.version}}"
+          imagePullPolicy: "{{.Values.frontend.deployment.image.pullPolicy}}"
+          ports:
+            - containerPort: {{.Values.frontend.deployment.ports.containerPort}}
+        # add live and readiness probes for Google cloud load balancer
+        # https://cloud.google.com/kubernetes-engine/docs/how-to/container-health-checks
+          readinessProbe:
+            httpGet:
+              path: "/"
+              port: {{.Values.frontend.deployment.ports.containerPort}}
+            initialDelaySeconds: 20
+            timeoutSeconds: 20
+
