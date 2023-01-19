@@ -38,10 +38,10 @@ backend:
 frontend:
   deployment:
     image:
-      # tag: gcr.io/containerisation/containerization-frontend
-      # pullPolicy: Always
+      tag: gcr.io/containerisation/containerization-frontend
+      pullPolicy: Always
       version: latest
-      tag: containerization-frontend
-      pullPolicy: Never
+      # tag: containerization-frontend
+      # pullPolicy: Never
     ports:
       containerPort: 80

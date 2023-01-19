@@ -50,7 +50,7 @@ spec:
         # https://cloud.google.com/kubernetes-engine/docs/how-to/container-health-checks
           readinessProbe:
             httpGet:
-              path: "/health-check"
+              path: "/version"
               port: {{.Values.backend.deployment.ports.containerPort}}
             initialDelaySeconds: 20
             timeoutSeconds: 20
