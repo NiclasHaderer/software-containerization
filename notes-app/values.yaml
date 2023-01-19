@@ -1,8 +1,8 @@
-pvc:
+pv:
   accessMode: ReadWriteOnce
   size: 1Gi
-  storageClass: ""
-
+  # Will create it in /var/lib/docker/volumes/minikube/_data/lib/docker/volumes/
+  hostPath: "postgres-data"
 postgresql:
   fullnameOverride: notes-app-postgresql
   primary:
@@ -17,6 +17,7 @@ postgresql:
     existingSecret: pg-user-password
     secretKeys:
       userPasswordKey: user-password
+
 backend:
   deployment:
     image:
@@ -44,4 +45,3 @@ frontend:
       pullPolicy: Never
     ports:
       containerPort: 80
-

@@ -1,5 +1,5 @@
 #!/bin/bash
-minikube start
+minikube start --cni calico
 minikube addons enable ingress
 minikube addons enable dashboard
 
