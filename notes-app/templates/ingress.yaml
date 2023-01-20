@@ -11,12 +11,10 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
-
   rules:
     - host: {{ .Values.ingress.host }}
     - http:
         paths:
-
           # for backend api
           - path: /api/(.*)?
             pathType: Prefix
@@ -25,7 +23,6 @@ spec:
                 name: {{.Chart.Name}}-backend
                 port:
                   number: {{.Values.backend.deployment.ports.containerPort }}
-
           # for frontend app
           - path: "/(.*)?"
             pathType: Prefix
