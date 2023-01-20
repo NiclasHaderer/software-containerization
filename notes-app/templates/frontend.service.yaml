@@ -12,5 +12,5 @@ spec:
   ports:
     - port: {{.Values.frontend.deployment.ports.containerPort}}
   selector:
-    app: {{.Chart.Name}}-frontend
+    name: {{.Chart.Name}}-frontend
     tier: frontend

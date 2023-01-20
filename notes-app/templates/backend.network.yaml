@@ -5,16 +5,18 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: {{.Chart.Name}}-backend
+      name: {{.Chart.Name}}-backend
       tier: backend
   policyTypes:
     - Egress
   egress:
     - to:
-      - podSelector:
-          matchLabels:
-            app: {{.Chart.Name}}-postgresql
+        - podSelector:
+            matchLabels:
+              name: {{.Chart.Name}}-postgresql
     - ports:
+        - port: {{.Values.postgresql.containerPorts.postgresql}}
+          protocol: TCP
         - port: 53
           protocol: TCP
         - port: 53

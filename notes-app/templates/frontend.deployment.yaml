@@ -11,12 +11,20 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{.Chart.Name}}-frontend
+      app: {{ .Chart.Name }}
+      chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+      release: "{{ .Release.Name }}"
+      heritage: "{{ .Release.Service }}"
+      name: {{.Chart.Name}}-frontend
       tier: frontend
   template:
     metadata:
       labels:
-        app: {{.Chart.Name}}-frontend
+        app: {{ .Chart.Name }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+        name: {{.Chart.Name}}-frontend
         tier: frontend
     spec:
       containers:

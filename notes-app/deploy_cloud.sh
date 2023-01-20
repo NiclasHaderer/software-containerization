@@ -26,14 +26,15 @@ helm repo update
 helm install nginx-ingress ingress-nginx/ingress-nginx --set controller.service.loadBalancerIP=34.160.138.104
 
 NAMESPACE="default"
+CONTEXT="gke_containerisation_europe-west4-a_containerization-cluster-v2"
 
 # 2) Apply the backend.secret.yaml file to the cluster using kubectl
 
-kubectl delete secret pg-user-password --namespace $NAMESPACE
-kubectl apply -f backend.secret.yaml --namespace $NAMESPACE
+kubectl delete secret pg-user-password --namespace $NAMESPACE --context $CONTEXT
+kubectl apply -f db.secret.yaml --namespace $NAMESPACE --context $CONTEXT
 
 # 3) Install app using helm
-helm delete my-notes --namespace $NAMESPACE
+helm uninstall my-notes --namespace $NAMESPACE --kube-context $CONTEXT --wait
 echo "Waiting for helm to delete the notes-app ..."
 sleep 10
-helm install my-notes . --namespace $NAMESPACE
+helm install my-notes . --namespace $NAMESPACE  --kube-context $CONTEXT
