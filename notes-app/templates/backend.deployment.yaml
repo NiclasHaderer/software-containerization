@@ -11,12 +11,20 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{.Chart.Name}}-backend
+      app: {{ .Chart.Name }}
+      chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+      release: "{{ .Release.Name }}"
+      heritage: "{{ .Release.Service }}"
+      name: {{ .Chart.Name }}-backend
       tier: backend
   template:
     metadata:
       labels:
-        app: {{.Chart.Name}}-backend
+        app: {{ .Chart.Name }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
+        name: {{.Chart.Name}}-backend
         tier: backend
     spec:
       containers:
@@ -46,8 +54,8 @@ spec:
 
           ports:
             - containerPort: {{.Values.backend.deployment.ports.containerPort}}
-        # add live and readiness probes for Google cloud load balancer
-        # https://cloud.google.com/kubernetes-engine/docs/how-to/container-health-checks
+          # add live and readiness probes for Google cloud load balancer
+          # https://cloud.google.com/kubernetes-engine/docs/how-to/container-health-checks
           readinessProbe:
             httpGet:
               path: "/version"
@@ -58,7 +66,7 @@ spec:
       initContainers:
         - name: {{.Chart.Name}}-wait-for-postgresql
           image: busybox
-          command: [ "sh", "-c", "until nc -z $DB_HOST $DB_PORT; do echo waiting for postgres; sleep 1; done" ]
+          command: [ "sh", "-c", "until timeout 1 nc -z $DB_HOST $DB_PORT; do echo waiting for postgres; sleep 1; done" ]
           env:
             - name: DB_HOST
               value: "{{.Values.backend.deployment.env.dbHost}}"
