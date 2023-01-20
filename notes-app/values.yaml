@@ -4,10 +4,12 @@ pv:
   # Will create it in /var/lib/docker/volumes/minikube/_data/lib/docker/volumes/
   hostPath: "postgres-data"
 postgresql:
+  commonLabels:
+    app: notes-app
+
   fullnameOverride: notes-app-postgresql
   primary:
     podLabels:
-      app: notes-app
       name: notes-app-postgresql
     persistence:
       existingClaim: notes-app-postgresql

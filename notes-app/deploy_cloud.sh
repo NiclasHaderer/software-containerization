@@ -29,7 +29,7 @@ NAMESPACE="default"
 # 2) Apply the backend.secret.yaml file to the cluster using kubectl
 
 kubectl delete secret pg-user-password --namespace $NAMESPACE
-kubectl apply -f backend.secret.yaml --namespace $NAMESPACE
+kubectl apply -f db.secret.yaml --namespace $NAMESPACE
 
 # 3) Install app using helm
 helm delete my-notes --namespace $NAMESPACE
