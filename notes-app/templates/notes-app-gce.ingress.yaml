@@ -8,7 +8,7 @@ metadata:
     # This enables HTTP connections from Internet clients
     kubernetes.io/ingress.allow-http: "true"
     kubernetes.io/ingress.global-static-ip-name: "containerisation-ingress-static-ip" # This only works for the GCP Ingress Controller
-    cert-manager.io/issuer: letsencrypt-staging #  or letsencrypt-staging | letsencrypt-production
+    cert-manager.io/issuer: letsencrypt-production #  or letsencrypt-staging | letsencrypt-production
   labels:
     app: notes-app
     chart: "notes-app-0.1.0"
@@ -16,7 +16,7 @@ metadata:
     heritage: "Helm"
 spec:
   tls:
-    - secretName: k8-omes-app-tls-staging
+    - secretName: k8-omes-app-tls-production #  k8-omes-app-tls-production | k8-omes-app-tls-staging
       hosts:
         - k8.omes.app
   rules:
