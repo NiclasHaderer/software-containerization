@@ -9,5 +9,12 @@ spec:
   policyTypes:
     - Ingress
     - Egress
-  egress: []
-  ingress: []
+  egress:
+    - ports:
+        - port: {{.Values.postgresql.containerPorts.postgresql}}
+          protocol: TCP
+        - port: 53
+          protocol: TCP
+        - port: 53
+          protocol: UDP
+  ingress: [ ]

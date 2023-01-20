@@ -28,7 +28,7 @@ helm install nginx-ingress ingress-nginx/ingress-nginx --set controller.service.
 NAMESPACE="default"
 CONTEXT="gke_containerisation_europe-west4-a_containerization-cluster-v2"
 
-# 2) Apply the backend.secret.yaml file to the cluster using kubectl
+# 2) Apply the db.secret.yaml file to the cluster using kubectl
 
 kubectl delete secret pg-user-password --namespace $NAMESPACE --context $CONTEXT
 kubectl apply -f db.secret.yaml --namespace $NAMESPACE --context $CONTEXT
