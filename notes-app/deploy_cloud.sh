@@ -4,7 +4,7 @@
 # on Google Cloud Platform using helm.
 
 # !! This will cost money, running the smallest cluster costs
-# !! about 100$ per month.
+# !! about 200$ per month.
 
 # !! before running this script, make sure the glcoud cli is
 # !! authenticated and the correct project is selected
@@ -24,13 +24,12 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 helm install nginx-ingress ingress-nginx/ingress-nginx
 
-
 NAMESPACE="default"
 
-# 2) Apply the secrets.yaml file to the cluster using kubectl
+# 2) Apply the backend.secret.yaml file to the cluster using kubectl
 
 kubectl delete secret pg-user-password --namespace $NAMESPACE
-kubectl apply -f secrets.yaml --namespace $NAMESPACE
+kubectl apply -f backend.secret.yaml --namespace $NAMESPACE
 
 # 3) Install app using helm
 helm delete my-notes --namespace $NAMESPACE

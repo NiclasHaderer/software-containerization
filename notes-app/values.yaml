@@ -45,3 +45,7 @@ frontend:
       # pullPolicy: Never
     ports:
       containerPort: 80
+
+ingress:
+  host: k8.omes.app
+  secretName: k8-omes-app-tls-staging
