@@ -22,7 +22,8 @@
 
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
-helm install nginx-ingress ingress-nginx/ingress-nginx
+# todo: delete the ingress controller before installing it again to avoid errors
+helm install nginx-ingress ingress-nginx/ingress-nginx --set controller.service.loadBalancerIP=34.160.138.104
 
 NAMESPACE="default"
 

@@ -26,6 +26,8 @@ spec:
           env:
             - name: PRODUCTION
               value: "{{.Values.backend.deployment.env.production}}"
+            - name: API_PREFIX
+              value: /api
             - name: DB_USER
               value: "{{.Values.postgresql.auth.username}}"
             - name: DB_PASSWORD
@@ -50,7 +52,7 @@ spec:
         # https://cloud.google.com/kubernetes-engine/docs/how-to/container-health-checks
           readinessProbe:
             httpGet:
-              path: "/version"
+              path: "api/version"
               port: {{.Values.backend.deployment.ports.containerPort}}
             initialDelaySeconds: 20
             timeoutSeconds: 20

@@ -1,10 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: notes-app-ingress
+  name: notes-app-ingress-gce
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # This tells Google Cloud to create an External Load Balancer to realize this Ingress
+    kubernetes.io/ingress.class: gce
+    # This enables HTTP connections from Internet clients
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.global-static-ip-name: "containerisation-ingress-static-ip" # This only works for the GCP Ingress Controller
     cert-manager.io/issuer: letsencrypt-staging #  or letsencrypt-staging | letsencrypt-production
   labels:
     app: notes-app
@@ -20,17 +23,8 @@ spec:
     - host: k8.omes.app
       http:
         paths:
-      #    # for certificate manager without path validation
-      #    - path: /.well-known/acme-challenge/(.*)
-      #      pathType: Prefix
-      #      backend:
-      #        service:
-      #          name: cert-manager-webhook
-      #          port:
-      #            number: 443
-
           # for backend api
-          - path: /api/(.*)?
+          - path: /api/
             pathType: Prefix
             backend:
               service:
@@ -39,7 +33,7 @@ spec:
                   number: 8000
 
           # for frontend app
-          - path: /(.*)?
+          - path: /
             pathType: Prefix
             backend:
               service:
