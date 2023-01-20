@@ -7,12 +7,13 @@ spec:
     matchLabels:
       name: {{.Chart.Name}}-backend
       tier: backend
-  policyTypes: []
+  policyTypes:
+    - Egress
   egress:
     - to:
-      - podSelector:
-          matchLabels:
-            name: {{.Chart.Name}}-postgresql
+        - podSelector:
+            matchLabels:
+              name: {{.Chart.Name}}-postgresql
     - ports:
         - port: {{.Values.postgresql.containerPorts.postgresql}}
           protocol: TCP
