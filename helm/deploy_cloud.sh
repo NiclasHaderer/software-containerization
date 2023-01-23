@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit immediately if a command exits with a non-zero status
+set -e
+
 # The kubectl context
 CONTEXT="gke_containerisation_europe-west4-a_containerization-cluster-v2"
 
@@ -9,9 +12,13 @@ namespace=default
 upgrade=false
 reinstall=false
 
+# Create a function called usage() that prints the usage message
+usage() {
+  echo "Usage: deploy_could.sh [--first_time] [--namespace=string] [--upgrade] [--reinstall]"
+}
+
 TEMP=$(getopt -o '' --long first_time:,namespace:,upgrade,reinstall -n 'deploy_could.sh' -- "$@")
 eval set -- "$TEMP"
-
 while true; do
   case "$1" in
     --first_time)
@@ -27,26 +34,31 @@ while true; do
       reinstall=true
       shift;;
     -h|--help)
-      echo "Usage: deploy_could.sh [--first_time] [--namespace=string] [--upgrade] [--reinstall]"
+      usage
       exit 0;;
     --)
       shift
       break;;
     *)
       echo "Internal error!" >&2
+      usage
       exit 1;;
   esac
 done
 
 if ! $upgrade && ! $reinstall; then
     echo "Either upgrade or reinstall must be specified." >&2
+    usage
     exit 1
 fi
 
 if $upgrade && $reinstall; then
     echo "Only one of upgrade or reinstall can be specified." >&2
+    usage
     exit 1
 fi
+
+exit 0
 
 if $first_time; then
     # 1) Install the ingress controller
