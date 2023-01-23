@@ -6,9 +6,11 @@ metadata:
     # This tells Google Cloud to create an External Load Balancer to realize this Ingress
     kubernetes.io/ingress.class: gce
     # This enables HTTP connections from Internet clients
-    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.allow-http: "false"
     kubernetes.io/ingress.global-static-ip-name: "containerisation-ingress-static-ip" # This only works for the GCP Ingress Controller
     cert-manager.io/issuer: letsencrypt-production #  or letsencrypt-staging | letsencrypt-production
+    networking.gke.io/v1beta1.FrontendConfig: ssl-redirect
+
   labels:
     app: notes-app
     chart: "notes-app-0.1.0"
