@@ -62,8 +62,6 @@ spec:
             httpGet:
               path: "api/version"
               port: {{.Values.backend.deployment.ports.containerPort}}
-            initialDelaySeconds: 20
-            timeoutSeconds: 20
 
       initContainers:
         - name: {{.Chart.Name}}-wait-for-postgresql

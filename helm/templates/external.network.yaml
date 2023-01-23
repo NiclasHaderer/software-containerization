@@ -22,29 +22,4 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              tier: ingress
-        - namespaceSelector:
-            matchLabels:
-              "app.kubernetes.io/instance": ingress-nginx
-
-        - podSelector:
-            matchLabels:
-              tier: ingress
-        - podSelector:
-            matchLabels:
-              "app.kubernetes.io/instance": ingress-nginx
-  egress:
-    - to:
-        - namespaceSelector:
-            matchLabels:
-              tier: ingress
-        - namespaceSelector:
-            matchLabels:
-              "app.kubernetes.io/instance": ingress-nginx
-
-        - podSelector:
-            matchLabels:
-              tier: ingress
-        - podSelector:
-            matchLabels:
               "app.kubernetes.io/instance": ingress-nginx

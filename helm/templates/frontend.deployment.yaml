@@ -39,6 +39,4 @@ spec:
             httpGet:
               path: "/"
               port: {{.Values.frontend.deployment.ports.containerPort}}
-            initialDelaySeconds: 20
-            timeoutSeconds: 1
 
