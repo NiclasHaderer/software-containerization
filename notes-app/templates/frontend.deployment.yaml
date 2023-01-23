@@ -33,12 +33,12 @@ spec:
           imagePullPolicy: "{{.Values.frontend.deployment.image.pullPolicy}}"
           ports:
             - containerPort: {{.Values.frontend.deployment.ports.containerPort}}
-        # add live and readiness probes for Google cloud load balancer
-        # https://cloud.google.com/kubernetes-engine/docs/how-to/container-health-checks
+          # add live and readiness probes for Google cloud load balancer
+          # https://cloud.google.com/kubernetes-engine/docs/how-to/container-health-checks
           readinessProbe:
             httpGet:
               path: "/"
               port: {{.Values.frontend.deployment.ports.containerPort}}
             initialDelaySeconds: 20
-            timeoutSeconds: 20
+            timeoutSeconds: 1
 
