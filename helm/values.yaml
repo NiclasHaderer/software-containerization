@@ -38,6 +38,7 @@ backend:
       singleNode: true
     ports:
       containerPort: 8000
+
 frontend:
   deployment:
     image:
@@ -52,3 +53,7 @@ frontend:
 ingress:
   host: k8.omes.app
   secretName: k8-omes-app-tls-staging
+
+networking:
+  ingressSelectorName: app.kubernetes.io/instance
+  ingressSelectorValue: ingress-nginx
