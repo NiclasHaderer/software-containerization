@@ -1,12 +1,16 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: postgresql-only-backend
+  name: {{.Chart.Name}}-pg-only-backend
+  labels:
+    app: {{ .Chart.Name }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
 spec:
   podSelector:
     matchLabels:
-      name:  {{.Chart.Name}}-postgresql
-      tier: backend
+      name: {{.Chart.Name}}-postgresql
   policyTypes:
     - Ingress
   ingress:
@@ -14,3 +18,4 @@ spec:
         - podSelector:
             matchLabels:
               name: {{.Chart.Name}}-backend
+              tier: backend
