@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: postgresql-only-backend
+  labels:
+    managed-by: "Helm"
 spec:
   podSelector:
     matchLabels:

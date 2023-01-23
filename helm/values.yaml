@@ -1,3 +1,6 @@
+
+deployment:
+  type: minikube # can be gce or minikube
 pv:
   accessMode: ReadWriteOnce
   size: 1Gi

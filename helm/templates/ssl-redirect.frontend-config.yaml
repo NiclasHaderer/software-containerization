@@ -1,3 +1,5 @@
+# Only supported by hte Google Cloud Kubernetes Engine
+{{if eq .Values.deployment.type "gce"}}
 apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
 metadata:
@@ -5,4 +7,6 @@ metadata:
 spec:
   redirectToHttps:
     enabled: true
+{{end}}
+
 

@@ -1,0 +1,56 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: notes-app-ingress-{{.Values.deployment.type}}
+  annotations:
+    # for google cloud
+    {{ if eq .Values.deployment.type "gce" }}                 # if the deployment type is gce
+      kubernetes.io/ingress.class: gce                        # Use GCE Ingress Controller
+      kubernetes.io/ingress.global-static-ip-name: "containerisation-ingress-static-ip" # This only works for the GCP Ingress Controller
+      cert-manager.io/issuer: letsencrypt-production          # letsencrypt-staging | letsencrypt-production
+      networking.gke.io/v1beta1.FrontendConfig: ssl-redirect  # Redirect HTTP to HTTPS
+
+    # for development deployment using minikube
+    {{ else if eq .Values.deployment.type "minikube" }}       # if the deployment type is minikube
+      kubernetes.io/ingress.class: nginx                      # Use Nginx Ingress Controller
+    {{ end }}
+
+
+  labels:
+    app: {{ .Chart.Name }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+
+spec:
+  # Only apply tls to the ingress if we are in the cloud
+  {{ if eq .Values.deployment.type "gce" }}
+  tls:
+    - secretName: k8-omes-app-tls-production #  k8-omes-app-tls-production | k8-omes-app-tls-staging
+      hosts:
+        - {{ .Values.ingress.host }}
+  {{ end }}
+  rules:
+    # only use host if the deployment type is gce, and we are using a static ip with domain name
+    {{ if eq .Values.deployment.type "gce" }}
+    - host: {{ .Values.ingress.host }}
+    {{ end }}
+    - http:
+        paths:
+          # for backend api
+          - path: /api/
+            pathType: Prefix
+            backend:
+              service:
+                name: {{.Chart.Name}}-backend
+                port:
+                  number: {{.Values.backend.deployment.ports.containerPort }}
+
+          # for frontend app
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{.Chart.Name}}-frontend
+                port:
+                  number: {{.Values.frontend.deployment.ports.containerPort }}

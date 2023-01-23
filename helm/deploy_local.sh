@@ -20,4 +20,4 @@ fi
 
 # check if the secret exists
 kubectl apply -f db.secret.yaml --namespace $NAMESPACE --context $CONTEXT
-helm install my-notes . --namespace $NAMESPACE --kube-context $CONTEXT
+helm install my-notes . --namespace $NAMESPACE --kube-context $CONTEXT --set deployment.type=minikube
