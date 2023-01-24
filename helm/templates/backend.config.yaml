@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{.Chart.Name}}-{{.Values.backend.deployment.configName}}
+data:
+  production: {{.Values.backend.deployment.config.production}}
+  api_prefix: /api
+  single_node: {{.Values.backend.deployment.config.singleNode}}
+
+  db_user: {{.Values.postgresql.auth.username}}
+  db_driver: {{.Values.backend.deployment.config.dbDriver}}
+  db_host: {{.Values.backend.deployment.config.dbHost}}
+  db_port: {{.Values.backend.deployment.config.dbPort}}
+  db_name: {{.Values.postgresql.auth.database}}
+

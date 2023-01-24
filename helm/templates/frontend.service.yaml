@@ -8,7 +8,7 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
-  type: NodePort
+  type: NodePort  # ClusterIP would be more secure, but the GCE ingress controller doesn't support it
   ports:
     - port: {{.Values.frontend.deployment.ports.containerPort}}
   selector:

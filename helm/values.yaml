@@ -1,4 +1,5 @@
-
+secrets:
+  db_user_password: super_secret
 deployment:
   type: minikube # can be gce or minikube
 pv:
@@ -20,10 +21,9 @@ postgresql:
     enablePostgresUser: false
     username: u_notes
     database: notes
-    existingSecret: pg-user-password
+    existingSecret: pg-user-password  # name of the secret that contains the password
     secretKeys:
       userPasswordKey: user-password
-
 backend:
   deployment:
     image:
@@ -32,7 +32,8 @@ backend:
       version: latest
       # repository: containerization-backend
       # pullPolicy: Never
-    env:
+    configName: backend-config
+    config:
       production: true
       dbUser: u_notes
       dbDriver: postgresql+aiopg
@@ -41,7 +42,6 @@ backend:
       singleNode: true
     ports:
       containerPort: 8000
-
 frontend:
   deployment:
     image:
@@ -52,11 +52,9 @@ frontend:
       # pullPolicy: Never
     ports:
       containerPort: 80
-
 ingress:
   host: k8.omes.app
-  secretName: k8-omes-app-tls-staging
-
+  tlsSecretName: k8-omes-app-tls-production  # k8-omes-app-tls-production | k8-omes-app-tls-staging
 networking:
   ingressSelectorName: app.kubernetes.io/instance
   ingressSelectorValue: ingress-nginx

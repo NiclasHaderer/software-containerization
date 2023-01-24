@@ -32,28 +32,52 @@ spec:
           image: "{{.Values.backend.deployment.image.tag}}:{{.Values.backend.deployment.image.version}}"
           imagePullPolicy: "{{.Values.backend.deployment.image.pullPolicy}}"
           env:
-            - name: PRODUCTION
-              value: "{{.Values.backend.deployment.env.production}}"
-            - name: API_PREFIX
-              value: /api
-            - name: DB_USER
-              value: "{{.Values.postgresql.auth.username}}"
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: "{{.Values.postgresql.auth.existingSecret}}"
                   key: "{{.Values.postgresql.auth.secretKeys.userPasswordKey}}"
+            - name: PRODUCTION
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Chart.Name}}-{{.Values.backend.deployment.configName}}          # The ConfigMap this value comes from.
+                  key: production               # The key to fetch.
+            - name: API_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Chart.Name}}-{{.Values.backend.deployment.configName}}          # The ConfigMap this value comes from.
+                  key: api_prefix               # The key to fetch.
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Chart.Name}}-{{.Values.backend.deployment.configName}}          # The ConfigMap this value comes from.
+                  key: db_user               # The key to fetch.
             - name: DB_DRIVER
-              value: "{{.Values.backend.deployment.env.dbDriver}}"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Chart.Name}}-{{.Values.backend.deployment.configName}}          # The ConfigMap this value comes from.
+                  key: db_driver               # The key to fetch.
             - name: DB_HOST
-              value: "{{.Values.backend.deployment.env.dbHost}}"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Chart.Name}}-{{.Values.backend.deployment.configName}}          # The ConfigMap this value comes from.
+                  key: db_host               # The key to fetch.
             - name: DB_PORT
-              value: "{{.Values.backend.deployment.env.dbPort}}"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Chart.Name}}-{{.Values.backend.deployment.configName}}          # The ConfigMap this value comes from.
+                  key: db_port               # The key to fetch.
             - name: SINGLE_NODE
-              value: "{{.Values.backend.deployment.env.singleNode}}"
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Chart.Name}}-{{.Values.backend.deployment.configName}}          # The ConfigMap this value comes from.
+                  key: single_node               # The key to fetch.
             - name: DB_NAME
-              value: {{.Values.postgresql.auth.database}}
-
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Chart.Name}}-{{.Values.backend.deployment.configName}}          # The ConfigMap this value comes from.
+                  key: db_name               # The key to fetch.
+                
           ports:
             - containerPort: {{.Values.backend.deployment.ports.containerPort}}
           # add live and readiness probes for Google cloud load balancer
@@ -69,7 +93,7 @@ spec:
           command: [ "sh", "-c", "until timeout 1 nc -z $DB_HOST $DB_PORT; do echo waiting for postgres; sleep 1; done" ]
           env:
             - name: DB_HOST
-              value: "{{.Values.backend.deployment.env.dbHost}}"
+              value: "{{.Values.backend.deployment.config.dbHost}}"
             - name: DB_PORT
-              value: "{{.Values.backend.deployment.env.dbPort}}"
+              value: "{{.Values.backend.deployment.config.dbPort}}"
 

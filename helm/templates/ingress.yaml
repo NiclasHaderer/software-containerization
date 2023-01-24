@@ -26,7 +26,7 @@ spec:
   # Only apply tls to the ingress if we are in the cloud
   {{ if eq .Values.deployment.type "gce" }}
   tls:
-    - secretName: k8-omes-app-tls-production #  k8-omes-app-tls-production | k8-omes-app-tls-staging
+    - secretName: {{.Values.ingress.tlsSecretName}} #  k8-omes-app-tls-production | k8-omes-app-tls-staging
       hosts:
         - {{ .Values.ingress.host }}
   {{ end }}
