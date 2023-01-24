@@ -7,21 +7,21 @@ do
     case $key in
         --install)
             echo "Installing PostgreSQL..."
-            kubectl apply -f secret.yaml
-            kubectl apply -f configmap.yaml
-            kubectl apply -f pvc.yaml
-            kubectl apply -f deployment.yaml
-            kubectl apply -f service.yaml
+            kubectl apply -f configs/secret.yaml
+            kubectl apply -f configs/configmap.yaml
+            kubectl apply -f configs/pvc.yaml
+            kubectl apply -f configs/deployment.yaml
+            kubectl apply -f configs/service.yaml
             echo "PostgreSQL installation complete."
             shift
             ;;
         --delete)
             echo "Deleting PostgreSQL..."
-            kubectl delete -f service.yaml
-            kubectl delete -f deployment.yaml
-            kubectl delete -f pvc.yaml
-            kubectl delete -f configmap.yaml
-            kubectl delete -f secret.yaml
+            kubectl delete -f configs/service.yaml
+            kubectl delete -f configs/deployment.yaml
+            kubectl delete -f configs/pvc.yaml
+            kubectl delete -f configs/configmap.yaml
+            kubectl delete -f configs/secret.yaml
             echo "PostgreSQL deletion complete."
             shift
             ;;
