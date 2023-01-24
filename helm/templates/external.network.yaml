@@ -1,5 +1,5 @@
 # Disable this network policy for Google cloud as it will not work with the way google could use their ingress
-{{if .Values.deployment.type ne "gce" }}
+{{if ne .Values.deployment.type "gce" }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:

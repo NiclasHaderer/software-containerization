@@ -7,7 +7,6 @@ set -e
 CONTEXT="gke_containerisation_europe-west4-a_containerization-cluster-v2"
 
 # Default values
-first_time=false
 namespace=default
 upgrade=false
 reinstall=false
@@ -16,16 +15,13 @@ delete=false
 
 # Create a function called usage() that prints the usage message
 usage() {
-  echo "Usage: deploy_could.sh [--first_time] [--namespace=string] [--upgrade] [--reinstall] [--delete] [--install]"
+  echo "Usage: deploy_could.sh [--namespace=string] [--upgrade] [--reinstall] [--delete] [--install]"
 }
 
-TEMP=$(getopt -o '' --long first_time:,namespace:,upgrade,reinstall,delete,install -n 'deploy_could.sh' -- "$@")
+TEMP=$(getopt -o '' --long namespace:,upgrade,reinstall,delete,install -n 'deploy_could.sh' -- "$@")
 eval set -- "$TEMP"
 while true; do
   case "$1" in
-    --first_time)
-      first_time=true
-      shift 1;;
     --namespace)
       namespace="$2"
       shift 2;;
@@ -64,13 +60,6 @@ if $upgrade && $reinstall; then
     echo "Only one of upgrade or reinstall can be specified." >&2
     usage
     exit 1
-fi
-
-if $first_time; then
-    # 1) Install the ingress controller
-    helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-    helm repo update
-    helm install nginx-ingress ingress-nginx/ingress-nginx --set controller.service.loadBalancerIP=34.160.138.104
 fi
 
 if $upgrade; then

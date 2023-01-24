@@ -3,7 +3,7 @@
 # in the *external.network.yaml* file and allow incoming connections from this ingress pod to the backend/frontend.
 # The solution for this is now to allow all incoming connections to backend/frontend.
 # Another solution could be to whitelist the IP address of the gce ingress, but we decided against this...
-{{if .Values.deployment.type eq "gce"}}
+{{if eq .Values.deployment.type "gce"}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
