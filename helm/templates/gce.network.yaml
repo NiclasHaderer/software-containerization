@@ -10,14 +10,14 @@ metadata:
   name: {{.Chart.Name}}-gce-allow-ingress
   labels:
     app: {{ .Chart.Name }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    chart: "{{ .Chart.Name }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
   podSelector:
     matchLabels:
       app: {{ .Chart.Name }}
-      chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+      chart: "{{ .Chart.Name }}"
       release: "{{ .Release.Name }}"
       heritage: "{{ .Release.Service }}"
     matchExpressions:

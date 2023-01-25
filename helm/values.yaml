@@ -29,7 +29,7 @@ backend:
     image:
       tag: gcr.io/containerisation/containerization-backend
       pullPolicy: Always
-      version: latest
+      version: latest # red or latest
       # repository: containerization-backend
       # pullPolicy: Never
     configName: backend-config
@@ -47,7 +47,7 @@ frontend:
     image:
       tag: gcr.io/containerisation/containerization-frontend
       pullPolicy: Always
-      version: latest
+      version: latest # red | latest
       # tag: containerization-frontend
       # pullPolicy: Never
     ports:

@@ -4,7 +4,7 @@ metadata:
   name: {{ .Chart.Name }}-postgresql
   labels:
     app: {{ .Chart.Name }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    chart: "{{ .Chart.Name }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:

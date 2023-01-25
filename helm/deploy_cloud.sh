@@ -7,7 +7,7 @@ set -e
 CONTEXT="gke_containerisation_europe-west4-a_containerization-cluster-v2"
 
 # Default values
-namespace=notes
+namespace="default"
 upgrade=false
 reinstall=false
 install=false
@@ -56,7 +56,7 @@ if ! $upgrade && ! $reinstall && ! $install && ! $delete; then
     exit 1
 fi
 
-if $upgrade && $reinstall; then
+if [[ "true" == $upgrade && "true" == $reinstall ]]; then
     echo "Only one of upgrade or reinstall can be specified." >&2
     usage
     exit 1
