@@ -9,12 +9,11 @@ ENV PATH="$POETRY_HOME/bin:$PATH"
 
 RUN python -c 'from urllib.request import urlopen; print(urlopen("https://install.python-poetry.org").read().decode())' | python -
 COPY . /app
-RUN ls -al
 RUN poetry install --no-interaction --no-ansi -vvv
 
 FROM python as runtime
 ENV PATH="/app/.venv/bin:$PATH"
 COPY --from=builder /app /app
-EXPOSE 8000
 ENTRYPOINT ["uvicorn", "--host=0.0.0.0", "--port=8000", "--workers=1" ]
 CMD ["todo_api:app"]
+EXPOSE 8000
