@@ -7,7 +7,7 @@ set -e
 CONTEXT="gke_containerisation_europe-west4-a_containerization-cluster-v2"
 
 # Default values
-namespace=default
+namespace=notes
 upgrade=false
 reinstall=false
 install=false
@@ -74,6 +74,11 @@ if $reinstall; then
 fi
 
 if $install; then
+    # If namespace does not exist, create it
+    if ! kubectl get namespace "$namespace" --context $CONTEXT; then
+      echo "Namespace $namespace does not exist. Creating..."
+      kubectl create namespace "$namespace" --context $CONTEXT
+    fi
     # 3) Install the app using helm
     helm install my-notes . --namespace "$namespace"  --kube-context $CONTEXT --set deployment.type=gce
 fi
