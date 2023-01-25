@@ -63,37 +63,22 @@ if $upgrade && $reinstall; then
 fi
 
 if $upgrade; then
-    # 2) Update the database secret
-    kubectl delete secret pg-user-password --namespace "$namespace" --context $CONTEXT
-    kubectl apply -f db.secret.yaml --namespace "$namespace" --context $CONTEXT
-
     # 3) Upgrade the app using helm
     helm upgrade my-notes . --namespace "$namespace" --kube-context $CONTEXT --set deployment.type=gce
 fi
 
 if $reinstall; then
-    # 2) Update the database secret
-    kubectl delete secret pg-user-password --namespace "$namespace" --context $CONTEXT
-    kubectl apply -f db.secret.yaml --namespace "$namespace" --context $CONTEXT
-
     # 3) Reinstall the app using helm
     helm uninstall my-notes --namespace "$namespace" --kube-context $CONTEXT --wait
-    echo "Waiting for helm to delete the notes-app ..."
-    sleep 10
     helm install my-notes . --namespace "$namespace"  --kube-context $CONTEXT --set deployment.type=gce
 fi
 
 if $install; then
-    # 2) Update the database secret
-    kubectl apply -f db.secret.yaml --namespace "$namespace" --context $CONTEXT
-
     # 3) Install the app using helm
     helm install my-notes . --namespace "$namespace"  --kube-context $CONTEXT --set deployment.type=gce
 fi
 
 if $delete; then
-    # 1) Delete password secret
-    kubectl delete secret pg-user-password --namespace "$namespace" --context $CONTEXT
     # 2) Delete the app using helm
     helm uninstall my-notes --namespace "$namespace" --kube-context $CONTEXT --wait
 fi
