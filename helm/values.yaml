@@ -1,12 +1,4 @@
-secrets:
-  db_user_password: super_secret
-deployment:
-  type: minikube # can be gce or minikube
-pv:
-  accessMode: ReadWriteOnce
-  size: 1Gi
-  # Will create it in /var/lib/docker/volumes/minikube/_data/lib/docker/volumes/
-  hostPath: "postgres-data"
+# Postgres configuration
 postgresql:
   commonLabels:
     app: notes-app
@@ -21,17 +13,30 @@ postgresql:
     enablePostgresUser: false
     username: u_notes
     database: notes
-    existingSecret: pg-user-password  # name of the secret that contains the password
+    # name of the secret that contains the password
+    existingSecret: pg-user-password
     secretKeys:
       userPasswordKey: user-password
+pv:
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  # Will create it in /var/lib/docker/volumes/minikube/_data/lib/docker/volumes/
+  hostPath: "postgres-data"
+
+secrets:
+  db_user_password: super_secret
+
+deployment:
+  # can be gce or minikube
+  type: minikube
+
 backend:
   deployment:
     image:
       tag: gcr.io/containerisation/containerization-backend
       pullPolicy: Always
-      version: latest # red or latest
-      # repository: containerization-backend
-      # pullPolicy: Never
+      # red or latest
+      version: latest
     configName: backend-config
     config:
       production: true
@@ -42,23 +47,28 @@ backend:
       singleNode: true
     ports:
       containerPort: 8000
+
 frontend:
   deployment:
     image:
       tag: gcr.io/containerisation/containerization-frontend
       pullPolicy: Always
-      version: latest # red | latest
-      # tag: containerization-frontend
-      # pullPolicy: Never
+      # red or latest
+      version: latest
     ports:
       containerPort: 80
+
 ingress:
   host: k8.omes.app
-  tlsSecretName: k8-omes-app-tls-production  # k8-omes-app-tls-production | k8-omes-app-tls-staging
+  # k8-omes-app-tls-production | k8-omes-app-tls-staging
+  tlsSecretName: k8-omes-app-tls-production
+
 networking:
   ingressSelectorName: app.kubernetes.io/instance
   ingressSelectorValue: ingress-nginx
+
 certManagerNamespace: cert-manager
+
 users:
   admin:
     - tbd
