@@ -4,9 +4,11 @@ metadata:
   name: {{.Chart.Name}}-admin-binding
   namespace: {{.Release.Namespace}}
 subjects:
-  - kind: User
-    name: tbd
-    apiGroup: rbac.authorization.k8s.io
+  {{  range $user := .Values.users.admin }}
+    - kind: User
+      name: {{ $user }}
+      apiGroup: rbac.authorization.k8s.io
+    {{- end }}
 roleRef:
   kind: Role
   name: {{.Chart.Name}}-admin
@@ -20,9 +22,11 @@ metadata:
   name: {{.Chart.Name}}-auditor-binding
   namespace: {{.Release.Namespace}}
 subjects:
+  {{  range $user := .Values.users.auditor }}
   - kind: User
-    name: tbd
+    name: {{ $user }}
     apiGroup: rbac.authorization.k8s.io
+    {{- end }}
 roleRef:
   kind: Role
   name: {{.Chart.Name}}-auditor
@@ -36,9 +40,11 @@ metadata:
   name: {{.Chart.Name}}-cert-manager-binding
   namespace: {{.Values.certManagerNamespace}}
 subjects:
+  {{  range $user := .Values.users.crtManager }}
   - kind: User
-    name: tbd
+    name: {{ $user }}
     apiGroup: rbac.authorization.k8s.io
+    {{- end }}
 roleRef:
   kind: Role
   name: {{.Chart.Name}}-cert-manager
