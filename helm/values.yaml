@@ -58,3 +58,4 @@ ingress:
 networking:
   ingressSelectorName: app.kubernetes.io/instance
   ingressSelectorValue: ingress-nginx
+certManagerNamespace: cert-manager

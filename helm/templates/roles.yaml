@@ -1,0 +1,33 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{.Chart.Name}}-admin
+rules:
+  - apiGroups: ["", "extensions", "apps"]
+    resources: ["*"]
+    verbs: ["*"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{.Chart.Name}}-auditor
+rules:
+  - apiGroups: ["", "extensions", "apps"]
+    resources: ["*"]
+    verbs: ["get", "watch", "list"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: {{ .Values.certManagerNamespace }}
+  name: {{.Chart.Name}}-cert-manager
+rules:
+  - apiGroups: ["", "extensions", "apps"]
+    resources: ["*"]
+    verbs: ["*"]
