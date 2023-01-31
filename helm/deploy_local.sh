@@ -3,7 +3,7 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
-NAMESPACE="default"
+NAMESPACE="notes"
 CONTEXT="minikube"
 
 # check if my-notes is already installed

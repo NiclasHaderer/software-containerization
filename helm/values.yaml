@@ -71,8 +71,8 @@ certManagerNamespace: cert-manager
 
 users:
   admin:
-    - tbd
+    - notes-admin
   auditor:
-    - tbd
-  crtManager:
-    - tbd
+    - notes-auditor
+  clusterAdmin:
+    - notes-cluster-admin

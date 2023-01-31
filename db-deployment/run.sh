@@ -10,7 +10,7 @@ do
             kubectl apply -f configs/secret.yaml
             kubectl apply -f configs/configmap.yaml
             kubectl apply -f configs/pvc.yaml
-            kubectl apply -f configs/deployment.yaml
+            kubectl apply -f configs/stateful-set.yaml
             kubectl apply -f configs/service.yaml
             echo "PostgreSQL installation complete."
             shift
@@ -18,7 +18,7 @@ do
         --delete)
             echo "Deleting PostgreSQL..."
             kubectl delete -f configs/service.yaml
-            kubectl delete -f configs/deployment.yaml
+            kubectl delete -f configs/stateful-set.yaml
             kubectl delete -f configs/pvc.yaml
             kubectl delete -f configs/configmap.yaml
             kubectl delete -f configs/secret.yaml

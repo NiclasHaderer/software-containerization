@@ -1,9 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: postgres
 spec:
   replicas: 1
+  serviceName: postgres-ha
   selector:
     matchLabels:
       app: postgres
@@ -40,3 +41,15 @@ spec:
         - name: postgres-data-volume
           persistentVolumeClaim:
             claimName: pg-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-ha
+spec:
+  selector:
+    app: postgres
+  clusterIP: None
+  ports:
+    - port: 5432
+      targetPort: 5432
