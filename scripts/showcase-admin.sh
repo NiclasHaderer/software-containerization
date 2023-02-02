@@ -1,12 +1,14 @@
 exec_cmd(){
   #  Print in green
   echo "\n"
-  echo "\e[32m$1\e[0m"
+  printf "\e[32m$1\e[0m"
+  echo "\n"
   eval "$1"
   sleep 3
 }
 
-kubectl config use-context minikube > /dev/null
+kubectl config use-context gke_containerisation_europe-west4-a_containerization-cluster-v2 > /dev/null
+
 # Show current contexts
 exec_cmd "kubectl config get-contexts"
 # Show that the pods can be listed

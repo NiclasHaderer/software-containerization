@@ -2,10 +2,13 @@ exec_cmd(){
   #  Print in green
   # shellcheck disable=SC2028
   echo "\n"
-  echo "\e[32m$1\e[0m"
+  printf "\e[32m$1\e[0m"
+  echo "\n"
   eval "$1"
   sleep 3
 }
+
+kubectl config use-context gke_containerisation_europe-west4-a_containerization-cluster-v2 > /dev/null
 
 namespace="default"
 
@@ -24,7 +27,7 @@ exec_cmd "kubectl config get-contexts"
 exec_cmd "kubectl get pods -n kube-system"
 # But in the notes ns the user has full access
 exec_cmd "kubectl get pods -n $namespace"
-# Show that the user can create delete a pod
+# Show that the user can't create delete a pod
 # Get the pod name
 pod_name=$(kubectl get pods -n $namespace -ojson -l tier=frontend | jq -r '.items[0].metadata.name')
 exec_cmd "kubectl delete pod $pod_name -n $namespace"
