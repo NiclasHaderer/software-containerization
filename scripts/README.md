@@ -1,9 +1,9 @@
 ### Create needed users
 
 ```bash
-./create_users.sh "notes-auditor"
-./create_users.sh "notes-admin"
-./create_users.sh "notes-cluster-admin"
+./create-user.sh "notes-auditor"
+./create-user.sh "notes-admin"
+./create-user.sh "notes-cluster-admin"
 ```
 
 ### Showcase the permissions of the different users
