@@ -1,9 +1,9 @@
 exec_cmd(){
   #  Print in green
   # shellcheck disable=SC2028
-  echo "\n"
+  echo ""
   printf "\e[32m$1\e[0m"
-  echo "\n"
+  echo ""
   eval "$1"
   sleep 3
 }
