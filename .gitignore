@@ -2,4 +2,4 @@
 *.zip
 database.json
 /out/production/software-containerization/
-scripts/certs
+rbac/certs
