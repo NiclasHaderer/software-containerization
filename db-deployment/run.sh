@@ -9,7 +9,6 @@ do
             echo "Installing PostgreSQL..."
             kubectl apply -f configs/secret.yaml
             kubectl apply -f configs/configmap.yaml
-            kubectl apply -f configs/pvc.yaml
             kubectl apply -f configs/stateful-set.yaml
             kubectl apply -f configs/service.yaml
             echo "PostgreSQL installation complete."
@@ -19,7 +18,6 @@ do
             echo "Deleting PostgreSQL..."
             kubectl delete -f configs/service.yaml
             kubectl delete -f configs/stateful-set.yaml
-            kubectl delete -f configs/pvc.yaml
             kubectl delete -f configs/configmap.yaml
             kubectl delete -f configs/secret.yaml
             echo "PostgreSQL deletion complete."
@@ -33,9 +31,9 @@ do
             echo "PostgreSQL data filling complete."
             shift
             ;;
-        --restart-deployment)
+        --restart)
             echo "Restarting PostgreSQL deployment..."
-            kubectl rollout restart deployment/postgres
+            kubectl rollout restart statefulset postgres
             echo "PostgreSQL deployment restart complete."
             shift
             ;;
