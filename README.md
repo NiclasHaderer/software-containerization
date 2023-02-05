@@ -1,4 +1,5 @@
 # Software containerization
+## Everyone contributed to the project in an equal amount!
 This is the project for the Software Containerization of 2023 course at VU Amsterdam by group 42. We didn't 
 find "the answer to life, the universe and everything", but we did find a way to containerize software and deploy
 it to a Kubernetes cluster. 
